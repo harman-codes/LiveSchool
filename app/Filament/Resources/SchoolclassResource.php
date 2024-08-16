@@ -23,12 +23,12 @@ class SchoolclassResource extends Resource
 {
     protected static ?string $model = Schoolclass::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $navigationGroup = 'Classes & Sections';
 
     protected static ?string $label = 'Classes';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
 
 

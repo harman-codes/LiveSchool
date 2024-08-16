@@ -44,19 +44,24 @@ class StudentResource extends Resource
                 Forms\Components\Select::make('gender')
                     ->options(['m'=>'Male','f'=>'Female' ,'o'=>'Other'])->required(),
                 Forms\Components\DatePicker::make('dob'),
-                Forms\Components\TextInput::make('mobile'),
+                Forms\Components\TextInput::make('mobile')
+                ->tel(),
                 Forms\Components\TextInput::make('email')
                     ->email()
+                    ->unique(ignoreRecord: true)
                     ->required(),
                 Forms\Components\TextInput::make('fathername')
                 ->label('Father\'s Name'),
                 Forms\Components\TextInput::make('mothername')
                 ->label('Mother\'s Name'),
                 Forms\Components\Textarea::make('address'),
-                Forms\Components\TextInput::make('username')->required(),
+                Forms\Components\TextInput::make('username')
+                    ->unique(ignoreRecord: true)
+                    ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required(),
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
             ]);
     }
 
