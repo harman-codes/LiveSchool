@@ -15,6 +15,7 @@ use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
@@ -81,7 +82,8 @@ class SchoolclassResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('section'),
                 Tables\Columns\TextColumn::make('classwithsection')
-                ->label('Class (Section)'),
+                ->label('Class (Section)')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('subjects.name')
                 ->label('Subjects')
                 ->badge(),
@@ -137,16 +139,59 @@ class SchoolclassResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])
-//                    ->label('More actions')
-                    ->icon('heroicon-m-ellipsis-vertical')
-//                    ->size(ActionSize::Small)
-//                    ->color('primary')
-//                    ->button(),
+                ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                    Tables\Actions\BulkAction::make('assignsubjectsbulk')
+                        ->label('Assign Subjects')
+                        ->icon('heroicon-o-document-plus')
+                        ->color('success')
+                    ->form(function(){
+                            return [
+                                Forms\Components\Select::make('subjects')
+                                    ->label('Select subjects to assign')
+                                    ->multiple()
+                                    //->relationship('subjects','name')
+                                    ->options(Subject::all()->pluck('name','id'))
+                                    ->preload()
+                                    ->required(),
+                            ];
+                        })
+                        ->action(function(array $data, Collection $record) {
+                            $ifSubjectsAttached = $record->each(function ($instance) use ($data) {
+                                $instance->subjects()->syncWithoutDetaching($data['subjects']);
+                            });
+                            if($ifSubjectsAttached){
+                                Notify::success('Subjects assigned successfully');
+                            }
+                        }),
+                    Tables\Actions\BulkAction::make('removesubjectsbulk')
+                        ->label('Remove Subjects')
+                        ->icon('heroicon-o-document-minus')
+                        ->color('danger')
+                        ->form(function(){
+                            return [
+                                Forms\Components\Select::make('subjects')
+                                    ->label('Select subjects to remove')
+                                    ->multiple()
+                                    //->relationship('subjects','name')
+                                    ->options(Subject::all()->pluck('name','id'))
+                                    ->preload()
+                                    ->required(),
+                            ];
+                        })
+                        ->action(function(array $data, Collection $record) {
+                            $ifSubjectsAttached = $record->each(function ($instance) use ($data) {
+                                $instance->subjects()->detach($data['subjects']);
+                            });
+                            if($ifSubjectsAttached){
+                                Notify::success('Subjects removed successfully');
+                            }
+                        }),
+
+                ]), //bulk action group
             ]);
     }
 
