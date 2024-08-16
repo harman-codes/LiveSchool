@@ -21,6 +21,14 @@ class TestPage extends Page implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
+
+    public function getsubjects()
+    {
+        $schoolclass = Schoolclass::find(1);
+        return $schoolclass->subjects;
+    }
+
+
     public function table(Table $table): Table
     {
         return $table
@@ -32,7 +40,7 @@ class TestPage extends Page implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //
             ])
             ->bulkActions([
                 // ...

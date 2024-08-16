@@ -4,11 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SchoolclassResource\Pages;
 use App\Filament\Resources\SchoolclassResource\RelationManagers;
+use App\Helpers\Notify;
 use App\Models\Schoolclass;
 use App\Models\Section;
+use App\Models\Subject;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -79,14 +82,66 @@ class SchoolclassResource extends Resource
                 Tables\Columns\TextColumn::make('section'),
                 Tables\Columns\TextColumn::make('classwithsection')
                 ->label('Class (Section)'),
+                Tables\Columns\TextColumn::make('subjects.name')
+                ->label('Subjects')
+                ->badge(),
             ])
             ->defaultSort('sort', 'asc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('assignsubjects')
+                ->icon('heroicon-o-document-plus')
+                ->label('')
+                ->color('success')
+                ->form(function(){
+                    return [
+                        Forms\Components\Select::make('subjects')
+                            ->label('Assign Subjects')
+                            ->multiple()
+                            //->relationship('subjects','name')
+                            ->options(Subject::all()->pluck('name','id'))
+                            ->preload()
+                            ->required(),
+                    ];
+                })
+                ->action(function(array $data, Schoolclass $record) {
+                    $ifSubjectsAttached = $record->subjects()->syncWithoutDetaching($data['subjects']);
+
+                    if($ifSubjectsAttached){
+                        Notify::success('Subjects assigned successfully');
+                    }
+                }),
+                Tables\Actions\Action::make('detachsubjects')
+                    ->icon('heroicon-o-document-minus')
+                    ->label('')
+                    ->color('danger')
+                    ->form(function(Schoolclass $record) {
+                        return [
+                            Forms\Components\Select::make('subjects')
+                                ->label('Detach Subjects')
+                                ->multiple()
+                                    ->options($record->subjects()->pluck('name','subject_id'))
+                                ->preload()
+                                ->required(),
+                        ];
+                    })
+                    ->action(function(array $data, Schoolclass $record) {
+                        $ifSubjectsDetached = $record->subjects()->detach($data['subjects']);
+                        if ($ifSubjectsDetached) {
+                            Notify::success('Subjects removed successfully');
+                        }
+                    }),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+//                    ->label('More actions')
+                    ->icon('heroicon-m-ellipsis-vertical')
+//                    ->size(ActionSize::Small)
+//                    ->color('primary')
+//                    ->button(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
