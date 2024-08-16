@@ -60,7 +60,6 @@ class StudentResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
             ]);
     }
@@ -71,11 +70,13 @@ class StudentResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25)
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('studentdetails.rollno')
                     ->label('Roll No'),
                 Tables\Columns\TextColumn::make('studentdetails.schoolclass.classwithsection')
                     ->label('Class')
+                ->searchable(),
             ])
             ->filters([
                 //

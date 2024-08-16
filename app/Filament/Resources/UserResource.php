@@ -28,12 +28,11 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('email')->unique(ignoreRecord: true)->email()->required(),
-                Forms\Components\TextInput::make('mobile')->unique(ignoreRecord: true)->tel()->nullable(),
+                Forms\Components\TextInput::make('mobile')->unique(ignoreRecord: true)->tel()->unique(ignoreRecord: true)->required(),
                 Forms\Components\TextInput::make('address')->nullable(),
                 Forms\Components\TextInput::make('username')->unique(ignoreRecord: true)->required(),
                 Forms\Components\TextInput::make('password')->password()
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
                 Forms\Components\Select::make('role')
                 ->options([

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('gender',['m','f','o']);
             $table->date('dob');
-            $table->string('mobile')->unique();
+            $table->string('mobile')->nullable();
             $table->string('email')->unique();
             $table->string('fathername')->nullable();
             $table->string('mothername')->nullable();
