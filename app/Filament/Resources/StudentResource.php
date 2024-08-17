@@ -8,13 +8,11 @@ use App\Helpers\Notify;
 use App\Helpers\SessionYears;
 use App\Models\Schoolclass;
 use App\Models\Student;
-use App\Models\Studentdetail;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class StudentResource extends Resource
 {
@@ -67,16 +65,23 @@ class StudentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25)
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('studentdetails.rollno')
-                    ->label('Roll No'),
                 Tables\Columns\TextColumn::make('studentdetails.schoolclass.classwithsection')
                     ->label('Class')
-                ->searchable(),
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('studentdetails.rollno')
+                    ->label('Roll No'),
+//                Tables\Columns\ViewColumn::make('class')
+//                    ->label('Class')
+//                    ->view('livewire.tablecolumns.student-table-class'),
+//                Tables\Columns\ViewColumn::make('rollno')
+//                    ->label('Roll No')
+//                    ->view('livewire.tablecolumns.student-table-roll-no'),
             ])
             ->filters([
                 //
@@ -87,9 +92,9 @@ class StudentResource extends Resource
                     ->label('Assign')
                     ->icon('heroicon-o-plus-circle')
                     ->form(function(Student $record){
-                        $sessionyear =  $record->studentdetails->where('student_id',$record->id)?->first()?->sessionyear;
-                        $schoolclass_id =  $record->studentdetails->where('student_id',$record->id)?->first()?->schoolclass_id;
-                        $rollno =  $record->studentdetails->where('student_id',$record->id)?->first()?->rollno;
+//                        $sessionyear =  $record->studentdetails->where('student_id',$record->id)?->first()?->sessionyear;
+                        $schoolclass_id =  $record->studentdetails->where('student_id',$record->id)?->where('sessionyear',SessionYears::currentSessionYear())?->first()?->schoolclass_id;
+                        $rollno =  $record->studentdetails->where('student_id',$record->id)->where('sessionyear',SessionYears::currentSessionYear())?->first()?->rollno;
 
 
                         return [

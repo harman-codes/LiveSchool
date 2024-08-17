@@ -1,3 +1,3 @@
 <x-filament-panels::page>
-<div id="testpage" class="bg-amber-400">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A architecto asperiores at, culpa dolores dolorum ea, eos fugiat illo incidunt magni nam nostrum odio optio porro possimus quas, vero voluptate? Aspernatur dolores ipsam rem ullam vero! Dignissimos doloribus expedita laudantium maxime minus, nihil obcaecati soluta voluptates? Assumenda culpa cumque dignissimos eos eveniet fuga hic impedit inventore laborum magnam magni minima modi natus non, nostrum numquam perspiciatis quae quia quisquam reprehenderit similique temporibus, velit veniam voluptatem voluptatum. Debitis ducimus esse fugit laudantium quis. Ad, adipisci debitis dolore expedita laboriosam magni nam nemo optio quia quos rem tempore tenetur voluptas. Eveniet, velit!</div>
+1122
 </x-filament-panels::page>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\SessionYears;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,6 +28,6 @@ class Student extends Authenticatable
 
     public function studentdetails() : HasMany
     {
-        return $this->hasMany(Studentdetail::class);
+        return $this->hasMany(Studentdetail::class)->where('sessionyear', '=', SessionYears::currentSessionYear());
     }
 }
