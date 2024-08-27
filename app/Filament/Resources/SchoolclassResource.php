@@ -8,16 +8,13 @@ use App\Helpers\Notify;
 use App\Models\Schoolclass;
 use App\Models\Section;
 use App\Models\Subject;
+use App\Tables\Columns\TestColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class SchoolclassResource extends Resource
 {
@@ -78,6 +75,7 @@ class SchoolclassResource extends Resource
                     ->label($isReordering ? 'Disable reordering' : 'Enable reordering'),
             )
             ->paginated(false)
+            ->recordUrl(false)
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('section'),
@@ -87,6 +85,7 @@ class SchoolclassResource extends Resource
                 Tables\Columns\TextColumn::make('subjects.name')
                 ->label('Subjects')
                 ->badge(),
+//                TestColumn::make('Test Column')
             ])
             ->defaultSort('sort', 'asc')
             ->filters([

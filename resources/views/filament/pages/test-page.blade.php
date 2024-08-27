@@ -1,3 +1,10 @@
 <x-filament-panels::page>
-1122
+
+
+{{--    @foreach($this->getstudentdetails() as $student)--}}
+{{--        {{$student->studentdetails}}--}}
+{{--        <hr />--}}
+{{--    @endforeach--}}
+
+    {{ $this->table }}
 </x-filament-panels::page>

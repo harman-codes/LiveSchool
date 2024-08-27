@@ -22,6 +22,11 @@ class UserResource extends Resource
 
     protected static ?string $label = 'Teachers';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return User::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -46,9 +51,14 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                //Hide Admin record from the table
+                return $query->where('id', '!=', 1);
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('role'),
             ])
             ->filters([
                 //
