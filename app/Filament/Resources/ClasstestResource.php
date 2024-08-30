@@ -17,6 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class ClasstestResource extends Resource
 {
@@ -42,6 +43,10 @@ class ClasstestResource extends Resource
                     })
                     ->label('Class')
                     ->required(),
+//            Select::make('schoolclass_id')
+//                ->label('Class')
+//                ->relationship('schoolclass', 'classwithsection')
+//                ->preload(),
                 Select::make('subject')
                     ->options(function(){
                         return Subject::all()->pluck('name', 'name');
@@ -57,6 +62,7 @@ class ClasstestResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('date')->date('d-m-Y')->label('Test Date'),
                 Tables\Columns\TextColumn::make('sessionyear')->label('Session'),
+//                Tables\Columns\TextColumn::make('schoolclass.classwithsection')->label('Class'),
                 Tables\Columns\TextColumn::make('classname')->label('Class'),
                 Tables\Columns\TextColumn::make('subject')->badge(),
                 Tables\Columns\TextColumn::make('testname')->label('Test Name')->searchable(),
@@ -66,13 +72,13 @@ class ClasstestResource extends Resource
                     }),
             ])
             ->filters([
-                Tables\Filters\Filter::make('testdate')
+                Tables\Filters\Filter::make('filterbydate')
                     ->form([
-//                        DatePicker::make('testdate')->label('Test Date'),
                     Select::make('testdate')
                         ->options(function(){
-                            return Classtest::all()->pluck('date', 'date');
+                            return Classtest::all()->pluck('date', 'date')->toArray();
                         })
+                        ->label('Test Date')
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query->when(
@@ -81,6 +87,23 @@ class ClasstestResource extends Resource
                                     return $query->where('date', '=', $data['testdate']);
                                 }
                             );
+                    }),
+                /*Filter 2*/
+                Tables\Filters\Filter::make('filterbyclass')
+                    ->form([
+                        Select::make('class')
+                            ->options(function(){
+                                return Schoolclass::all()->pluck('classwithsection', 'classwithsection')->toArray();
+                            })
+                            ->label('Class')
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['class'],
+                            function (Builder $query) use($data){
+                                return $query->where('classname', '=', $data['class']);
+                            }
+                        );
                     })
             ], layout: Tables\Enums\FiltersLayout::AboveContent)
             ->actions([

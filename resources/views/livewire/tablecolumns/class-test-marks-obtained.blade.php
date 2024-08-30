@@ -1,0 +1,4 @@
+<div>
+    <input wire:model.live.debounce.500ms="marksobtained" type="text" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white/5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:key="columncell-{{$record->id}}" @if($is_buttonDisabled) disabled @endif>
+{{--    <input wire:model.live.debounce.500ms="marksobtained" type="text" class="border @if(!empty($marksobtained)) bg-green-50 border-green-300 dark:border-green-600 text-green-900 dark:text-green-400 @else bg-white border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white @endif text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white/5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" wire:key="columncell-{{$record->id}}" @if($is_buttonDisabled) disabled @endif>--}}
+</div>

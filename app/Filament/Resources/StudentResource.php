@@ -57,10 +57,10 @@ class StudentResource extends Resource
                 ->label('Session')
                 ->listWithLineBreaks(),
 
-//                Tables\Columns\TextColumn::make('studentdetails.schoolclass.classwithsection')
-//                    ->label('Class')
-//                    ->listWithLineBreaks()
-//                    ->searchable(),
+                Tables\Columns\TextColumn::make('studentdetails.schoolclass.classwithsection')
+                    ->label('Class')
+                    ->listWithLineBreaks()
+                    ->searchable(),
 
 //                Tables\Columns\TextColumn::make('Class')
 //                ->state(function($record){

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->string('sessionyear');
+//            $table->foreignId('schoolclass_id')->constrained('schoolclasses')->nullOnDelete();
             $table->string('classname');
             $table->string('subject');
             $table->string('testname');
