@@ -31,4 +31,9 @@ class Student extends Authenticatable
         return $this->hasMany(Studentdetail::class);
 //        return $this->hasMany(Studentdetail::class)->where('sessionyear', '=', SessionYears::currentSessionYear());
     }
+
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }

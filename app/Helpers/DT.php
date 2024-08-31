@@ -60,6 +60,25 @@ class DT
         return ED::decodeMonth(self::dt()->month);
     }
 
+    public static function getDayFromDate($date)
+    {
+        return Carbon::parse($date)->day;
+    }
+
+    public static function getMonthFromDate($date)
+    {
+        return Carbon::parse($date)->month;
+    }
+    public static function getMonthNameFromDate($date)
+    {
+        return ED::decodeMonth(Carbon::parse($date)->month);
+    }
+
+    public static function getYearFromDate($date)
+    {
+        return Carbon::parse($date)->year;
+    }
+
     public static function currentDay()
     {
         return self::dt()->day;
