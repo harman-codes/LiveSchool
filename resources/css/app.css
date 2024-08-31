@@ -2,3 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
+.fi-sidebar-nav{
+    /*@apply bg-gradient-to-br from-blue-800 to-indigo-900;*/
+    /*@apply bg-gradient-to-br from-blue-900 to-purple-800;*/
+    /*@apply bg-gradient-to-br from-blue-900 to-blue-700 dark:bg-none;*/
+    /*@apply bg-gradient-to-br from-rose-100 to-teal-100;*/
+    @apply bg-gradient-to-br from-slate-800 to-slate-700 dark:bg-none;
+}
+
+.fi-sidebar-header{
+    @apply bg-blue-900;
+}
+
+.fi-logo{
+    @apply text-white;
+}
+
+.fi-topbar nav{
+    @apply bg-blue-800;
+}
+
+.fi-sidebar-item-label, .fi-sidebar-item-icon {
+    @apply text-white;
+}
+
+li.fi-sidebar-item.fi-active .fi-sidebar-item-label{
+    @apply text-blue-800;
+}
+
+li.fi-sidebar-item.fi-active .fi-sidebar-item-icon{
+    @apply text-blue-800;
+}
+
+li.fi-sidebar-item:hover .fi-sidebar-item-label{
+    @apply text-blue-800;
+}
+li.fi-sidebar-item:hover .fi-sidebar-item-icon{
+    @apply text-blue-800;
+}
+
+.fi-sidebar-group-label{
+    @apply text-gray-300;
+}
+.fi-ta-table > thead > tr{
+    @apply bg-gradient-to-br from-blue-900 to-blue-700 text-white dark:bg-none;
+}
+
+th.fi-ta-header-cell .fi-ta-header-cell-label{
+    @apply text-white;
+}
+
+.fi-sidebar-item-active a{
+    /*@apply bg-gray-300;*/
+}
