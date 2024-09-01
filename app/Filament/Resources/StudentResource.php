@@ -173,6 +173,7 @@ class StudentResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
+                    ->dehydrated(fn ($state) => filled($state))
                     ->required(fn(string $context): bool => $context === 'create'),
             ]);
     }

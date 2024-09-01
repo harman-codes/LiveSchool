@@ -38,6 +38,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('username')->unique(ignoreRecord: true)->required(),
                 Forms\Components\TextInput::make('password')->password()
                     ->password()
+                    ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
                 Forms\Components\Select::make('role')
                 ->options([
