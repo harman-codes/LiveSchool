@@ -52,7 +52,8 @@ class StudentResource extends Resource
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25)
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('studentdetails.sessionyear')
                 ->label('Session')
                 ->listWithLineBreaks(),
