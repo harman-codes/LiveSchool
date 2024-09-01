@@ -28,6 +28,8 @@ class ClasstestResource extends Resource
     protected static ?string $navigationGroup = 'Class Tests';
     protected static ?string $navigationLabel = 'Create Test';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -59,6 +61,7 @@ class ClasstestResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
             ->columns([
                 Tables\Columns\TextColumn::make('date')->date('d-m-Y')->label('Test Date'),
                 Tables\Columns\TextColumn::make('sessionyear')->label('Session'),

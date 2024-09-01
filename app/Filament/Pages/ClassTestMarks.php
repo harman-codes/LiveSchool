@@ -30,7 +30,9 @@ class ClassTestMarks extends Page implements HasForms, HasTable
 
     protected static string $view = 'filament.pages.class-test-marks';
     protected static ?string $navigationGroup = 'Class Tests';
-    protected static ?string $navigationLabel = 'Class Test Marks';
+    protected static ?string $navigationLabel = 'Assign Marks';
+
+    protected static ?int $navigationSort = 2;
 
     /*Custom Properties*/
     public ?string $selectedClass = null;
