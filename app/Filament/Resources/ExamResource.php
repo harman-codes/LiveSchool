@@ -53,8 +53,6 @@ class ExamResource extends Resource
                 TextInput::make('examname')
                     ->label('Exam Name')
                     ->required(),
-                TextInput::make('totalmarks')
-                    ->label('Total Marks'),
             ]);
     }
 
@@ -72,7 +70,7 @@ class ExamResource extends Resource
                 ->label('Class'),
                 Tables\Columns\TextColumn::make('subjects.name')
                 ->badge(),
-                Tables\Columns\TextInputColumn::make('totalmarks')
+                Tables\Columns\TextColumn::make('totalmarks')
                     ->label('Total Marks'),
             ])
             ->filters([
@@ -129,7 +127,10 @@ class ExamResource extends Resource
 
                                 //set 0 as default value
                                 $subjectsWithMaxMarks = array_combine($subjectsFromDatabase, $zeroArray);
-                                $record->update(['maxmarks' => $subjectsWithMaxMarks]);
+                                $record->update([
+                                    'totalmarks' => 0,
+                                    'maxmarks' => $subjectsWithMaxMarks
+                                ]);
 
                                 Notify::success('Subjects assigned successfully');
                             }
@@ -161,7 +162,10 @@ class ExamResource extends Resource
 
                                 //set 0 as default value
                                 $subjectsWithMaxMarks = array_combine($subjectsFromDatabase, $zeroArray);
-                                $record->update(['maxmarks' => $subjectsWithMaxMarks]);
+                                $record->update([
+                                    'totalmarks' => 0,
+                                    'maxmarks' => $subjectsWithMaxMarks
+                                ]);
                                 Notify::success('Subjects removed successfully');
                             }
                         }),
@@ -186,7 +190,10 @@ class ExamResource extends Resource
                             }, $subjects);
 
                         })->action(function(array $data, Exam $record) {
-                            $is_recorded = $record->update(['maxmarks' => $data]);
+                            $is_recorded = $record->update([
+                                'totalmarks' => array_sum(array_values($data)),
+                                'maxmarks' => $data
+                            ]);
 
                             if($is_recorded){
                                 Notify::success('Max Marks updated successfully');
