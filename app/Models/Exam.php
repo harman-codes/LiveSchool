@@ -30,8 +30,6 @@ class Exam extends Model
         return $this->hasMany(Exammark::class);
     }
 
-
-
     protected function casts()
     {
         return [
