@@ -30,6 +30,8 @@ class ExamResource extends Resource
     protected static ?string $navigationGroup = 'Exams';
     protected static ?string $navigationLabel = 'Create Exam';
 
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -120,9 +122,20 @@ class ExamResource extends Resource
                             $ifSubjectsAttached = $record->subjects()->syncWithoutDetaching($data['subjects']);
 
                             if($ifSubjectsAttached){
+                                /*Add these subjects to maxmarks json column*/
+                                $subjectsFromDatabase = Exam::where('id', $record->id)->first()?->subjects->pluck('name')->toArray();
+
+                                $zeroArray = array_fill(0, count($subjectsFromDatabase),0);
+
+                                //set 0 as default value
+                                $subjectsWithMaxMarks = array_combine($subjectsFromDatabase, $zeroArray);
+                                $record->update(['maxmarks' => $subjectsWithMaxMarks]);
+
                                 Notify::success('Subjects assigned successfully');
                             }
                         }),
+
+                    /*Remove Subjects*/
                     Tables\Actions\Action::make('detachsubjects')
                         ->icon('heroicon-o-document-minus')
                         ->label('Remove')
@@ -140,6 +153,15 @@ class ExamResource extends Resource
                         ->action(function(array $data, Exam $record) {
                             $ifSubjectsDetached = $record->subjects()->detach($data['subjects']);
                             if ($ifSubjectsDetached) {
+
+                                /*Add these subjects to maxmarks json column*/
+                                $subjectsFromDatabase = Exam::where('id', $record->id)->first()?->subjects->pluck('name')->toArray();
+
+                                $zeroArray = array_fill(0, count($subjectsFromDatabase),0);
+
+                                //set 0 as default value
+                                $subjectsWithMaxMarks = array_combine($subjectsFromDatabase, $zeroArray);
+                                $record->update(['maxmarks' => $subjectsWithMaxMarks]);
                                 Notify::success('Subjects removed successfully');
                             }
                         }),
