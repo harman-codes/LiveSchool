@@ -30,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Sky,
             ])
-            ->sidebarWidth('15rem')
+            ->sidebarWidth('14rem') //15rem
             ->sidebarCollapsibleOnDesktop()
             ->viteTheme('resources/css/app.css')
             ->spa()
