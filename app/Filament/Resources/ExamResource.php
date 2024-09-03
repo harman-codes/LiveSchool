@@ -28,7 +28,7 @@ class ExamResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static ?string $navigationGroup = 'Exams';
-    protected static ?string $navigationLabel = 'Create Exam';
+    protected static ?string $navigationLabel = 'Exams';
 
     protected static ?int $navigationSort = 1;
 
