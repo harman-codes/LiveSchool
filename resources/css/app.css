@@ -40,8 +40,11 @@ li.fi-sidebar-item:hover .fi-sidebar-item-icon{
 .fi-sidebar-group-label{
     @apply text-gray-300;
 }
+
+/*Table*/
 .fi-ta-table > thead > tr{
-    @apply bg-gradient-to-br from-blue-900 to-blue-700 text-white dark:bg-none;
+    /*@apply bg-gradient-to-br from-blue-900 to-blue-700 text-white dark:bg-none;*/
+    @apply bg-gradient-to-br from-slate-800 to-slate-600 dark:bg-none;
 }
 
 th.fi-ta-header-cell .fi-ta-header-cell-label{
