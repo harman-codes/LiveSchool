@@ -28,6 +28,11 @@ class Schoolclass extends Model
         return $this->hasMany(Exam::class);
     }
 
+    public function announcements(): BelongsToMany
+    {
+        return $this->belongsToMany(Announcement::class);
+    }
+
 //    public function classtests()
 //    {
 //        return $this->hasMany(Classtest::class);
