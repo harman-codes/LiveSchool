@@ -69,3 +69,8 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 .ls-card-body{
     @apply mb-3 font-normal text-gray-700 dark:text-gray-400;
 }
+
+
+.fi-body{
+    @apply bg-slate-100;
+}
