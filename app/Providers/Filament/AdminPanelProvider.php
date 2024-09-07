@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->sidebarWidth('14rem') //15rem
             ->sidebarCollapsibleOnDesktop()
+//            ->collapsedSidebarWidth('5rem')
             ->viteTheme('resources/css/app.css')
             ->spa()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
