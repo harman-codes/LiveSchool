@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AnnouncementResource\Pages;
 use App\Filament\Resources\AnnouncementResource\RelationManagers;
+use App\Helpers\DT;
 use App\Helpers\Notify;
 use App\Helpers\SessionYears;
 use App\Models\Announcement;
@@ -14,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class AnnouncementResource extends Resource
 {
@@ -36,6 +38,16 @@ class AnnouncementResource extends Resource
                     ->label('Description')
                     ->columnSpanFull()
                     ->required(),
+                Forms\Components\FileUpload::make('pics')
+                    ->multiple()
+                    ->storeFileNamesIn('original_file_names')
+                    ->getUploadedFileNameForStorageUsing(function(TemporaryUploadedFile $file) : string{
+                        return (string) str($file->getClientOriginalName())
+                            ->prepend(Carbon::now()->format('d-m-Y_H-i-s').'_');
+                    })
+//                    ->preserveFilenames()
+                    ->image()
+                    ->label('Pictures'),
                 Forms\Components\Select::make('class')
                     ->label('Class')
                     ->relationship('schoolclasses', 'classwithsection', fn($query) => $query->orderBy('id', 'asc'))
@@ -58,6 +70,10 @@ class AnnouncementResource extends Resource
             ->recordUrl(null)
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\ImageColumn::make('pics')
+                    ->stacked()
+                    ->limit(3)
+                    ->limitedRemainingText(),
                 Tables\Columns\TextColumn::make('schoolclasses.classwithsection')
                 ->badge()
                 ->label('Classes'),
@@ -93,6 +109,7 @@ class AnnouncementResource extends Resource
                 Tables\Actions\ViewAction::make()
                 ->color('primary'),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
