@@ -14,6 +14,7 @@ class Announcement extends Model
     {
         return [
             'pics' => 'array',
+            'original_file_names' => 'array',
         ];
     }
 
