@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Announcement;
+use App\Observers\AnnouncementObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,5 +23,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::unguard();
+        Announcement::observe(AnnouncementObserver::class);
     }
 }
