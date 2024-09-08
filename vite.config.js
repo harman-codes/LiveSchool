@@ -8,4 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    //comment server if you are not using ip address host : Harman
+    // server: {
+    //     host: '127.0.0.1',
+    // },
 });
