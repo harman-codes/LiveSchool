@@ -79,7 +79,10 @@ class AnnouncementResource extends Resource
                 ->label('Classes'),
 //                Tables\Columns\IconColumn::make('is_published')
 //                    ->label('Status')
-//                    ->boolean(),
+//                    ->boolean()
+//                    ->hidden(function(){
+//                        return auth()->user()->role !== 'teacher';
+//                    }),
                 Tables\Columns\ToggleColumn::make('is_published')
                 ->label('Approve')
                 ->hidden(function(){
