@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.fi-body{
+    @apply bg-slate-100;
+}
+
 .fi-sidebar-nav{
     @apply bg-gradient-to-br from-slate-800 to-slate-700 dark:bg-none;
 }
@@ -71,6 +75,7 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 }
 
 
-.fi-body{
-    @apply bg-slate-100;
+/*Calendar Styles*/
+.fc-header-toolbar.fc-toolbar{
+    @apply flex gap-2 flex-col justify-center md:justify-between md:flex-row;
 }
