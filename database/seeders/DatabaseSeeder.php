@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\CurrentSessionYear;
+use App\Models\Driver;
 use App\Models\Schoolclass;
 use App\Models\Student;
 use App\Models\Studentdetail;
@@ -49,6 +50,11 @@ class DatabaseSeeder extends Seeder
             Student::factory(100)
 //                ->has(Studentdetail::factory()->count(1), 'studentdetails')
                 ->create();
+        }
+
+        /*Add Drivers*/
+        if(empty(Driver::count())){
+            Driver::factory(10)->create();
         }
 
         if(empty(CurrentSessionYear::count())){
