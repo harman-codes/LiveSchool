@@ -79,3 +79,8 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 .fc-header-toolbar.fc-toolbar{
     @apply flex gap-2 flex-col justify-center md:justify-between md:flex-row;
 }
+
+/*Modal Stles*/
+.fi-modal-window{
+    @apply bg-gradient-to-br from-blue-100 to-pink-100 dark:bg-none;
+}
