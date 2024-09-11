@@ -8,6 +8,8 @@ use App\Models\Driver;
 use Filament\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -49,16 +51,33 @@ class DriverResource extends Resource
         return $table
             ->recordUrl(null)
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('mobile'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('mobile')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('van')
-                ->label('Vehicle No'),
+                ->label('Vehicle No')
+                ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('view')
+                    ->icon('heroicon-o-eye')
+                ->infolist(function(Driver $record){
+                    return [
+                        TextEntry::make('name'),
+                        TextEntry::make('mobile'),
+                        TextEntry::make('email'),
+                        TextEntry::make('address'),
+                        TextEntry::make('van')->label('Vehicle No'),
+                        IconEntry::make('is_switchon')
+                            ->label('Location Status')
+                            ->boolean()
+                    ];
+                }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
             ])

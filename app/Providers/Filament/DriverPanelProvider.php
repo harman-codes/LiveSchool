@@ -30,15 +30,15 @@ class DriverPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Sky,
             ])
-            ->sidebarWidth('14rem') //15rem
-            ->sidebarCollapsibleOnDesktop()
-//            ->collapsedSidebarWidth('5rem')
+            ->navigation(false)
+//            ->sidebarWidth('14rem') //15rem
+//            ->sidebarCollapsibleOnDesktop()
             ->viteTheme('resources/css/app.css')
-            ->spa()
+//            ->spa()
             ->discoverResources(in: app_path('Filament/Driver/Resources'), for: 'App\\Filament\\Driver\\Resources')
             ->discoverPages(in: app_path('Filament/Driver/Pages'), for: 'App\\Filament\\Driver\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+//                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Driver/Widgets'), for: 'App\\Filament\\Driver\\Widgets')
             ->widgets([
