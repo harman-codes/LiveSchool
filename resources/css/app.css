@@ -62,10 +62,10 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 
 /*Custom Styles*/
 .ls-cards-holder{
-    @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+    @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4;
 }
 .ls-card{
-    @apply max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700;
+    @apply p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700;
 }
 .ls-card-title{
     @apply mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
