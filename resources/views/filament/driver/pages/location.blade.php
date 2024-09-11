@@ -1,3 +1,4 @@
+@php use App\Helpers\Config; @endphp
 <x-filament-panels::page>
     <div class="grid grid-cols-1 md:grid-cols-4">
         <button wire:click="toggleswitch" type="button" class="focus:outline-none text-white @if($switch) bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 @else bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 @endif focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
@@ -24,18 +25,21 @@
         </p>
     </div>
 
+    @if(!empty(Config::mapkey()))
+        <div class="grid grid-cols-1 p-4 rounded-lg bg-white">
+            <iframe
+                width="100%"
+                height="450"
+                style="border:0"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key={{Config::mapkey()}}&q={{$location}}&zoom=20">
+            </iframe>
+        </div>
+    @endif
 
-    <div class="grid grid-cols-1 p-4 rounded-lg bg-white">
-    <iframe
-        width="100%"
-        height="450"
-        style="border:0"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-lD0y-D-RVFPw_PF1TOK3P10k8lyErBs&q={{$location}}&zoom=20">
-    </iframe>
-</div>
+
     @script
     <script>
         document.addEventListener('livewire:navigated', () => {

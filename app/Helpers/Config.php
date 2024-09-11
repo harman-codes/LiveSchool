@@ -2,5 +2,8 @@
 namespace App\Helpers;
 
 class Config{
-    public static $mapkey = 'AIzaSyB-lD0y-D-RVFPw_PF1TOK3P10k8lyErBs';
+//    public static $mapkey = env('MAP_KEY', null);
+    public static function mapkey(){
+        return env('MAP_KEY', null);
+    }
 }
