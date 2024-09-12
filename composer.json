@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "filament/filament": "^3.2.110",
+        "filament/filament": "^3.2.111",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "saade/filament-fullcalendar": "^3.2"
