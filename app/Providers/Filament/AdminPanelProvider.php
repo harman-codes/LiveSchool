@@ -45,7 +45,7 @@ class AdminPanelProvider extends PanelProvider
 //            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 CalendarWidget::class,
-//                \App\Filament\Widgets\TestChart::class,
+                \App\Filament\Widgets\FullSchoolAttendanceChart::class,
 //                Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
             ])
