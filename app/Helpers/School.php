@@ -37,6 +37,30 @@ class School
         return $result;
     }
 
+    public static function attendanceTotalInSchoolOrClassOnDate($date = null, $class = null, $type = 'P')
+    {
+        $date = !empty($date) ? $date : DT::currentDate();
+        $month = DT::getMonthNameFromDate($date);
+        $day = DT::getDayFromDate($date);
+        $year = DT::getYearFromDate($date);
+
+        if(!empty($class)){
+            $result = Attendance::where([
+                ['sessionyear', SessionYears::currentSessionYear()],
+                ['year', $year],
+                ['classname', 'like', '%'.$class.'%'],
+                [$month.'->'.$day,'=',$type]
+            ])->count();
+        }else{
+            $result = Attendance::where([
+                ['sessionyear', SessionYears::currentSessionYear()],
+                ['year', $year],
+                [$month.'->'.$day,'=',$type]
+            ])->count();
+        }
+        return $result;
+    }
+
 
     public static function attendanceTotalInClassInMonth($month, $classSlug, $type = 'P')
     {
