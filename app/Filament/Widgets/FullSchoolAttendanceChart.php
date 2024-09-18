@@ -4,24 +4,35 @@ namespace App\Filament\Widgets;
 
 use App\Helpers\School;
 use Filament\Widgets\ChartWidget;
+use Filament\Widgets\Concerns\InteractsWithPageFilters;
 
 class FullSchoolAttendanceChart extends ChartWidget
 {
+    use InteractsWithPageFilters;
+
     protected static ?string $heading = 'Attendance Chart';
 
-    protected static ?string $description = 'Attendance of all students in the school';
+//    protected static ?string $description = 'Attendance of students';
 
     protected function getData(): array
     {
+        $selectedDate = $this->filters['dateforattendance'] ?? null;
+
+        if(empty($this->filters['classforattendance'])||$this->filters['classforattendance']=='wholeschool'){
+            $selectedClass = null;
+        }else{
+            $selectedClass = $this->filters['classforattendance'];
+        }
+
         return [
             'datasets' => [
                 [
                     'label' => 'Attendance',
                     'data' => [
-                        School::attendanceTotalInSchoolToday('P'),
-                        School::attendanceTotalInSchoolToday('A'),
-                        School::attendanceTotalInSchoolToday('L'),
-                        School::attendanceTotalInSchoolToday('H'),
+                        School::attendanceTotalInSchoolOrClassOnDate($selectedDate,$selectedClass,'P'),
+                        School::attendanceTotalInSchoolOrClassOnDate($selectedDate,$selectedClass,'A'),
+                        School::attendanceTotalInSchoolOrClassOnDate($selectedDate,$selectedClass,'L'),
+                        School::attendanceTotalInSchoolOrClassOnDate($selectedDate,$selectedClass,'H'),
                     ],
                     'backgroundColor' => [
                         '#15803D',
