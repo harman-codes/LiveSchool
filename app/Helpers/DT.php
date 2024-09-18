@@ -71,6 +71,7 @@ class DT
     }
     public static function getMonthNameFromDate($date)
     {
+        //january, february ans so on
         return ED::decodeMonth(Carbon::parse($date)->month);
     }
 
