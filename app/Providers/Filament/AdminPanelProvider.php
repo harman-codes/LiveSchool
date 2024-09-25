@@ -46,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 CalendarWidget::class,
                 \App\Filament\Widgets\FullSchoolAttendanceChart::class,
+                \App\Filament\Widgets\SelectedClassAttendanceChart::class,
 //                Widgets\AccountWidget::class,
 //                Widgets\FilamentInfoWidget::class,
             ])

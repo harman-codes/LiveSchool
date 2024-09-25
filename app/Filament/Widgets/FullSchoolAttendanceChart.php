@@ -17,12 +17,13 @@ class FullSchoolAttendanceChart extends ChartWidget
     protected function getData(): array
     {
         $selectedDate = $this->filters['dateforattendance'] ?? null;
+        $selectedClass = $this->filters['classforattendance'] ?? 'wholeschool';
 
-        if(empty($this->filters['classforattendance'])||$this->filters['classforattendance']=='wholeschool'){
-            $selectedClass = null;
-        }else{
-            $selectedClass = $this->filters['classforattendance'];
-        }
+//        if(empty($this->filters['classforattendance'])||$this->filters['classforattendance']=='wholeschool'){
+//            $selectedClass = 'wholeschool';
+//        }else{
+//            $selectedClass = $this->filters['classforattendance'];
+//        }
 
         return [
             'datasets' => [
