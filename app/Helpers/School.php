@@ -44,21 +44,24 @@ class School
         $day = DT::getDayFromDate($date);
         $year = DT::getYearFromDate($date);
 
-        if(!empty($class)){
-            $result = Attendance::where([
+        if(empty($class)){
+            return 0;
+        }
+
+        if($class=='wholeschool'){
+            return Attendance::where([
+                ['sessionyear', SessionYears::currentSessionYear()],
+                ['year', $year],
+                [$month.'->'.$day,'=',$type]
+            ])->count();
+        }else{
+            return Attendance::where([
                 ['sessionyear', SessionYears::currentSessionYear()],
                 ['year', $year],
                 ['classname', 'like', '%'.$class.'%'],
                 [$month.'->'.$day,'=',$type]
             ])->count();
-        }else{
-            $result = Attendance::where([
-                ['sessionyear', SessionYears::currentSessionYear()],
-                ['year', $year],
-                [$month.'->'.$day,'=',$type]
-            ])->count();
         }
-        return $result;
     }
 
 
