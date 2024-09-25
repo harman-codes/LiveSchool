@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\SelectedClassAttendanceChart;
 use App\Helpers\DT;
 use App\Helpers\SessionYears;
 use App\Models\Schoolclass;
@@ -30,6 +31,16 @@ class Attendance extends Page  implements HasForms, HasTable
     public ?string $selectedClass = null;
     public ?string $selectedDate = null;
 
+    public function updated($property)
+    {
+        if($property == 'selectedClass'){
+            $this->dispatch('class-selected', selectedclass: $this->selectedClass)->to(SelectedClassAttendanceChart::class);
+        }
+
+        if($property == 'selectedDate'){
+            $this->dispatch('date-selected', selecteddate: $this->selectedDate)->to(SelectedClassAttendanceChart::class);
+        }
+    }
 
     public function mount()
     {
