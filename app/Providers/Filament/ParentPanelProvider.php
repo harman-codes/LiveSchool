@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Parent\Widgets\AttendanceCalendarForParentsWidget;
 use App\Filament\Parent\Widgets\CalendarForParentsWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -41,11 +42,12 @@ class ParentPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Parent/Widgets'), for: 'App\\Filament\\Parent\\Widgets')
+//            ->discoverWidgets(in: app_path('Filament/Parent/Widgets'), for: 'App\\Filament\\Parent\\Widgets')
             ->widgets([
                 CalendarForParentsWidget::class,
-//                Widgets\AccountWidget::class,
-//                Widgets\FilamentInfoWidget::class,
+                AttendanceCalendarForParentsWidget::class,
+                Widgets\AccountWidget::class,
+                Widgets\FilamentInfoWidget::class,
             ])
             ->plugins([
                 FilamentFullCalendarPlugin::make()
