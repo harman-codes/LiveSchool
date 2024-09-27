@@ -55,4 +55,31 @@ class ED
         return str_replace('_', ' ', $val);
     }
 
+    public static function addZeroToSingleDigitNumber($val)
+    {
+        if($val<=9){
+            return '0'.$val;
+        }else{
+            return $val;
+        }
+    }
+
+    public static function colorForAttendanceValue($val = 'P')
+    {
+        $val = strtoupper($val);
+        if($val=='P'){
+            return 'green';
+        }
+        if($val=='A'){
+            return 'red';
+        }
+        if($val=='L'){
+            return 'yellow';
+        }
+        if($val=='H'){
+            return 'blue';
+        }
+        return '';
+    }
+
 }
