@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 class DT
 {
 
-    public $months = [
+    public static $months = [
         'january',
         'february',
         'march',
