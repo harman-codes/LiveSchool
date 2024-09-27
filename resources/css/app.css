@@ -84,3 +84,9 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 .fi-modal-window{
     @apply bg-gradient-to-br from-blue-100 to-pink-100 dark:bg-none;
 }
+
+
+/*Styles for Calendar*/
+.fc .fc-bg-event{
+    @apply opacity-75;
+}
