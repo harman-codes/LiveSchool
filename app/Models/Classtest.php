@@ -40,18 +40,12 @@ class Classtest extends Model
                 $maxMarks = (int)$attributes['maxmarks'];
                 $marksObtainedCell = (array)$this->jsonSerialize()['marksobtained'];
 
-//                $marksObtainedByCurrentStudent = array_filter($marksObtainedCell, function($key){
-//                    return $key==2;
-//                }, ARRAY_FILTER_USE_KEY);
+                $marksObtained = $marksObtainedCell[auth('parent')->user()->id] ?? null;
 
-                foreach ($marksObtainedCell as $studentId => $mo){
-                    if($studentId==2){
-                        if(!empty($maxMarks)&&!empty($mo)){
-                            return round(($mo/$maxMarks)*100,2);
-                        }
-                    }else{
-                        return '';
-                    }
+                if(!empty($maxMarks)&&!empty($marksObtained)){
+                    return round(($marksObtained/$maxMarks)*100,2);
+                }else{
+                    return null;
                 }
             }
         );

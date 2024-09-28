@@ -32,18 +32,14 @@ class ClassTestMarks extends Page  implements HasForms, HasTable
                 ->label('Test')
                 ->description(function($record){
                     return $record->date;
-                }),
-                TextColumn::make('subject'),
+                })
+                ->searchable(),
+                TextColumn::make('subject')
+                ->searchable(),
                 TextColumn::make('maxmarks'),
                 TextColumn::make('marksobtained')
                 ->formatStateUsing(function(Classtest $record){
-                    foreach($record->marksobtained as $studentId => $mo){
-                        if($studentId==2){
-                            return $mo;
-                        }else{
-                            return '';
-                        }
-                    }
+                    return $record->marksobtained[auth('parent')->user()->id];
                 }),
                 TextColumn::make('percentage')
                 ->label('%')
