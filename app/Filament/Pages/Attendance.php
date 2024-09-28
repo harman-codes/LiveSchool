@@ -17,7 +17,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 
-class Attendance extends Page  implements HasForms, HasTable
+class Attendance extends Page implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
