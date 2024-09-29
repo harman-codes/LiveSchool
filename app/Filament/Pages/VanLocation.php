@@ -26,11 +26,8 @@ class VanLocation extends Page
         return Driver::query()->get(['id', 'van']);
     }
 
-
-
     public function render(): \Illuminate\Contracts\View\View
     {
-
         /*if van is not selected, set default location*/
         if(!empty($this->selectedVan)){
             $data = Driver::where('id', $this->selectedVan)->first();
@@ -43,8 +40,6 @@ class VanLocation extends Page
             $this->location = 'india';
             $this->reset('selectedVan', 'driverName', 'vehicleNumber', 'locationStatus', 'dateTime');
         }
-
-
 
         return parent::render();
     }
