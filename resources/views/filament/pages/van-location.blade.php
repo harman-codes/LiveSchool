@@ -37,7 +37,7 @@
                     loading="lazy"
                     allowfullscreen
                     referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-lD0y-D-RVFPw_PF1TOK3P10k8lyErBs&q={{$location}}&zoom=20">
+                    src="https://www.google.com/maps/embed/v1/place?key={{Config::mapkey()}}&q={{$location}}&zoom=20">
                 </iframe>
             </div>
     @else
