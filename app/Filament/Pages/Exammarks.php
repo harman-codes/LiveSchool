@@ -126,6 +126,8 @@ class Exammarks extends Page implements HasForms, HasTable
                                      ->state(fn() => $val);
                              }, array_keys($marksObtained), array_values($marksObtained));
                              return $arr;
+                         }else{
+                             Notify::fail('Please assign marks first');
                          }
                     }),
                 /*View Marks End*/
