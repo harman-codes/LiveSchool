@@ -2,6 +2,7 @@
 
 namespace App\Filament\Parent\Pages;
 
+use App\Helpers\SessionYears;
 use App\Models\Classtest;
 use App\Models\Student;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -14,7 +15,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
-class ClassTestMarks extends Page  implements HasForms, HasTable
+class ClassTestMarks extends Page implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
@@ -29,7 +30,7 @@ class ClassTestMarks extends Page  implements HasForms, HasTable
             ->query(function(){
                 //grab class name from student and filter the results as per that
                 $classWithSection = Student::withWhereHas('studentdetails', function ($query){
-                    return $query->where('sessionyear', '2024-25')->with(['schoolclass']);
+                    return $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
                 })?->first()?->studentdetails?->first()?->schoolclass?->classwithsection;
 
                 return Classtest::query()->where('classname', 'like', '%'.$classWithSection.'%');
