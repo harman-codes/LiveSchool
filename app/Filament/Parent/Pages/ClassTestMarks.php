@@ -35,7 +35,7 @@ class ClassTestMarks extends Page  implements HasForms, HasTable
                 return Classtest::query()->where('classname', 'like', '%'.$classWithSection.'%');
             })
             ->columns([
-                TextColumn::make('classname'),
+//                TextColumn::make('classname'),
                 TextColumn::make('testname')
                 ->label('Test')
                 ->description(function($record){
