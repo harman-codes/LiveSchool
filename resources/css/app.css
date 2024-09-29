@@ -55,10 +55,6 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
     @apply text-white;
 }
 
-.fi-sidebar-item-active a{
-    /*@apply bg-gray-300;*/
-}
-
 
 /*Custom Styles*/
 .ls-cards-holder{
