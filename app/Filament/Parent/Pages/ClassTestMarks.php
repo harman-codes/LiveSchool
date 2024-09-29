@@ -3,6 +3,7 @@
 namespace App\Filament\Parent\Pages;
 
 use App\Models\Classtest;
+use App\Models\Student;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
@@ -25,7 +26,14 @@ class ClassTestMarks extends Page  implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Classtest::query())
+            ->query(function(){
+                //grab class name from student and filter the results as per that
+                $classWithSection = Student::withWhereHas('studentdetails', function ($query){
+                    return $query->where('sessionyear', '2024-25')->with(['schoolclass']);
+                })?->first()?->studentdetails?->first()?->schoolclass?->classwithsection;
+
+                return Classtest::query()->where('classname', 'like', '%'.$classWithSection.'%');
+            })
             ->columns([
                 TextColumn::make('classname'),
                 TextColumn::make('testname')
