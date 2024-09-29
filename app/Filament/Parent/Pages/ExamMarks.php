@@ -20,7 +20,7 @@ class ExamMarks extends Page
 
     public function getAllExams()
     {
-        return Student::withWhereHas('studentdetails', function ($query){
+        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
             $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
         })?->first()?->studentdetails?->first()?->schoolclass?->exams()->get();
     }

@@ -29,7 +29,7 @@ class ClassTestMarks extends Page implements HasForms, HasTable
         return $table
             ->query(function(){
                 //grab class name from student and filter the results as per that
-                $classWithSection = Student::withWhereHas('studentdetails', function ($query){
+                $classWithSection = Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
                     return $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
                 })?->first()?->studentdetails?->first()?->schoolclass?->classwithsection;
 
