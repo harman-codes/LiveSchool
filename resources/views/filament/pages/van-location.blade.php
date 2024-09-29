@@ -27,6 +27,9 @@
     </div>
 </div>
 
+    @php
+    $location = !empty($location) ? $location : 'india';
+    @endphp
 
     @if(!empty(Config::mapkey()))
             <div class="grid grid-cols-1 p-4 rounded-lg bg-white">
