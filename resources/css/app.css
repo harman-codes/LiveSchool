@@ -86,3 +86,21 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 .fc .fc-bg-event{
     @apply opacity-75;
 }
+
+
+/*Styles for swiper*/
+/*.swiper {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+
+.swiper-wrapper{
+    @apply flex items-center;
+}
+
+.swiper-slide {
+    @apply text-center text-lg bg-white flex items-center justify-center rounded-b-lg;
+}
+.swiper-slide img {
+    @apply block w-full h-full object-contain;
+}
