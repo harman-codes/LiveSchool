@@ -110,6 +110,4 @@ class School
             $query->where('classname', $classSlug);
         })->count();
     }
-
-
 }
