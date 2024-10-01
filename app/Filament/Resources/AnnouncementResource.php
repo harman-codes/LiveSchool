@@ -45,8 +45,11 @@ class AnnouncementResource extends Resource
                         return (string) str($file->getClientOriginalName())
                             ->prepend(Carbon::now()->format('d-m-Y_H-i-s').'_');
                     })
-//                    ->preserveFilenames()
                     ->image()
+                    ->imageEditor()
+                    ->panelLayout('grid')
+                    ->reorderable()
+                    ->appendFiles()
                     ->label('Pictures'),
                 Forms\Components\Select::make('class')
                     ->label('Class')
