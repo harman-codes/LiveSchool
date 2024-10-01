@@ -11,7 +11,7 @@ use Filament\Pages\Page;
 class ExamMarks extends Page
 {
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static string $view = 'filament.parent.pages.exam-marks';
 

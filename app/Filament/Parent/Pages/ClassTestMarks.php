@@ -20,7 +20,7 @@ class ClassTestMarks extends Page implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
 
     protected static string $view = 'filament.parent.pages.class-test-marks';
 

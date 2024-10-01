@@ -8,7 +8,7 @@ use Filament\Pages\Page;
 
 class Announcements extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-speaker-wave';
 
     protected static string $view = 'filament.parent.pages.announcements';
 
