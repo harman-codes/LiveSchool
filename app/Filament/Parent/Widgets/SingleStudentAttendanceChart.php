@@ -7,11 +7,12 @@ use App\Helpers\School;
 use App\Helpers\SessionYears;
 use App\Models\Attendance;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Livewire\Attributes\On;
 
 class SingleStudentAttendanceChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+//    protected static ?string $heading = 'Attendance';
 
     public $selectedYear;
     public $selectedMonth;
@@ -35,6 +36,10 @@ class SingleStudentAttendanceChart extends ChartWidget
         parent::mount();
     }
 
+    public function getHeading(): string
+    {
+        return ucwords($this->selectedMonth) . ' ' . $this->selectedYear;
+    }
 
     protected function getData(): array
     {
@@ -72,23 +77,47 @@ class SingleStudentAttendanceChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Attendance',
+                    'label' => 'Present',
                     'data' => [
                         count($present),
-                        count($absent),
-                        count($leave),
-                        count($halfDay),
                     ],
                     'backgroundColor' => [
                         '#15803D',
+                    ],
+                    'borderSkipped' => true
+                ],
+                [
+                    'label' => 'Absent',
+                    'data' => [
+                        count($absent),
+                    ],
+                    'backgroundColor' => [
                         '#B91C1C',
+                    ],
+                    'borderSkipped' => true
+                ],
+                [
+                    'label' => 'Leave',
+                    'data' => [
+                        count($leave),
+                    ],
+                    'backgroundColor' => [
                         '#FB923C',
+                    ],
+                    'borderSkipped' => true
+                ],
+                [
+                    'label' => 'Half Day',
+                    'data' => [
+                        count($halfDay),
+                    ],
+                    'backgroundColor' => [
                         '#1D4ED8'
                     ],
                     'borderSkipped' => true
                 ],
             ],
-            'labels' => ['Present','Absent','Leave','Half Day'],
+            'labels' => ['Attendance'],
         ];
     }
 
