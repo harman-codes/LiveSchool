@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Parent\Widgets\AttendanceCalendarForParentsWidget;
 use App\Filament\Parent\Widgets\CalendarForParentsWidget;
+use App\Filament\Parent\Widgets\SingleStudentAttendanceChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -46,6 +47,7 @@ class ParentPanelProvider extends PanelProvider
             ->widgets([
                 CalendarForParentsWidget::class,
                 AttendanceCalendarForParentsWidget::class,
+                SingleStudentAttendanceChart::class,
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
