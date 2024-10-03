@@ -40,7 +40,7 @@
                             <div class="mb-2 text-lg font-bold tracking-tight text-gray-700 dark:text-white truncate">{{$announcement->title}}</div>
 {{--                        </a>--}}
 
-                        <div class="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-4 text-justify">{!! $announcement->description !!}</div>
+                        <div class="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-5 text-justify">{!! $announcement->description !!}</div>
                     </div>
                     <div class="swiper mySwiper">
                         <div class="swiper-wrapper">

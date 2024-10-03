@@ -3,11 +3,9 @@
 namespace App\Filament\Parent\Widgets;
 
 use App\Helpers\DT;
-use App\Helpers\School;
 use App\Helpers\SessionYears;
 use App\Models\Attendance;
 use Filament\Widgets\ChartWidget;
-use Illuminate\Contracts\Support\Htmlable;
 use Livewire\Attributes\On;
 
 class SingleStudentAttendanceChart extends ChartWidget
