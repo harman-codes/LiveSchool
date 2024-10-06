@@ -23,8 +23,6 @@ class ClassTestMarksChart extends ChartWidget
 
         $performanceColors = PerformanceIndicator::all();
 
-        info($performanceColors);
-
         $testNames = [];
         $percentages = [];
         $colors = [];
@@ -37,7 +35,7 @@ class ClassTestMarksChart extends ChartWidget
 
             if(!empty(PerformanceIndicator::all())){
                 foreach(PerformanceIndicator::all() as $singleIndicator){
-                    if($row->percentage>=$singleIndicator->min&&$row->percentage<=$singleIndicator->max){
+                    if(round($row->percentage)>=$singleIndicator->min&&round($row->percentage)<=$singleIndicator->max){
                         $colors[] = $singleIndicator->color;
                         break;
                     }
