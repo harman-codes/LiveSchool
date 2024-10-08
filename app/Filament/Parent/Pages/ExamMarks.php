@@ -15,6 +15,9 @@ class ExamMarks extends Page
 
     protected static string $view = 'filament.parent.pages.exam-marks';
 
+    protected static ?string $navigationGroup = 'Exams';
+    protected static ?int $navigationSort = 1;
+
     /*Custom Properties*/
     public $selectedExam;
 

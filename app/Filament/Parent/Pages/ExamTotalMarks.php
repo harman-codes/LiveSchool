@@ -27,6 +27,7 @@ class ExamTotalMarks extends Page implements HasForms, HasTable
 
     protected static ?string $title = 'Total Marks';
     protected static ?string $navigationGroup = 'Exams';
+    protected static ?int $navigationSort = 2;
 
 
     public function table(Table $table): Table
