@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 
 class CurrentUser
@@ -71,34 +72,56 @@ class CurrentUser
         return self::user()->name;
     }
 
-    public static function classname()
+    public static function classId()
     {
-        $currentSessionYear = SessionYears::currentSessionYear();
-        if (self::is_parent()) {
-            $classname = self::user()->withWhereHas('studentdetails', function ($query) use ($currentSessionYear) {
-                $query->where('sessionyear', $currentSessionYear);
-            })->first()->studentdetails->first()->classname;
-
-            return $classname;
-        } else {
-            return null;
-        }
+        //if parent
+        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+            $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
+        })?->first()?->studentdetails?->first()?->schoolclass->id;
     }
 
-
-    public static function rollno()
+    public static function studentdetails()
     {
-        $currentSessionYear = SessionYears::currentSessionYear();
-        if (self::is_parent()) {
-            $classname = self::user()->withWhereHas('studentdetails', function ($query) use ($currentSessionYear) {
-                $query->where('sessionyear', $currentSessionYear);
-            })->first()->studentdetails->first()->rollno;
-
-            return $classname;
-        } else {
-            return null;
-        }
+        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+            $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
+        })?->first()?->studentdetails?->first();
     }
+
+    public static function classNameWithSection()
+    {
+        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+            $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
+        })?->first()?->studentdetails?->first()?->schoolclass->classwithsection;
+    }
+
+//    public static function classname()
+//    {
+//        $currentSessionYear = SessionYears::currentSessionYear();
+//        if (self::is_parent()) {
+//            $classname = self::user()->withWhereHas('studentdetails', function ($query) use ($currentSessionYear) {
+//                $query->where('sessionyear', $currentSessionYear);
+//            })->first()->studentdetails->first()->classname;
+//
+//            return $classname;
+//        } else {
+//            return null;
+//        }
+//    }
+
+
+//    public static function rollno()
+//    {
+//        $currentSessionYear = SessionYears::currentSessionYear();
+//        if (self::is_parent()) {
+//            $classname = self::user()->withWhereHas('studentdetails', function ($query) use ($currentSessionYear) {
+//                $query->where('sessionyear', $currentSessionYear);
+//            })->first()->studentdetails->first()->rollno;
+//
+//            return $classname;
+//        } else {
+//            return null;
+//        }
+//    }
 
 
 
