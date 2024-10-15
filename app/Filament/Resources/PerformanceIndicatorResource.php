@@ -17,7 +17,7 @@ class PerformanceIndicatorResource extends Resource
 {
     protected static ?string $model = PerformanceIndicator::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';
 
     protected static ?string $navigationLabel = 'Indicator';
 
