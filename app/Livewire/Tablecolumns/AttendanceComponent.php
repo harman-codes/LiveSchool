@@ -25,10 +25,9 @@ class AttendanceComponent extends Component
     public function markAttendance($option)
     {
 
-//        Notify::success($this->attendanceOption==$option ? 'Marked already':'Not Marked');
+        $classWithSection = $this->record->studentdetails->where('sessionyear', SessionYears::currentSessionYear())?->first()?->schoolclass->classwithsection ?? null;
 
-
-        if(!empty($this->record->id)&&!empty($this->selectedDate)&&!empty($this->selectedClass)){
+        if(!empty($this->record->id)&&!empty($this->selectedDate)&&!empty($classWithSection)){
             $day = $this->day;
             $month = $this->month;
             $year = $this->year;
@@ -45,12 +44,12 @@ class AttendanceComponent extends Component
                     'student_id' => $this->record->id
                 ],
                 [
-                    'classname' => $this->selectedClass,
+                    'classname' => $classWithSection,
                     $month.'->'.$day => $option
                 ]
             );
         }else{
-            Notify::fail('Please select class');
+            Notify::fail('Error: Please assign class first.');
         }
     }
 
@@ -58,7 +57,7 @@ class AttendanceComponent extends Component
 
     public function render()
     {
-        if (!empty($this->record->id) && !empty($this->selectedDate) && !empty($this->selectedClass)) {
+        if (!empty($this->record->id) && !empty($this->selectedDate)) {
                 $day = DT::getDayFromDate($this->selectedDate);
                 $month = DT::getMonthNameFromDate($this->selectedDate);
                 $year = DT::getYearFromDate($this->selectedDate);
