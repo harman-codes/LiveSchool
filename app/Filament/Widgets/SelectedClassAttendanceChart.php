@@ -4,11 +4,11 @@ namespace App\Filament\Widgets;
 
 use App\Helpers\School;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Contracts\Support\Htmlable;
 use Livewire\Attributes\On;
 
 class SelectedClassAttendanceChart extends ChartWidget
 {
-    protected static ?string $heading = 'Attendance';
 
     public $selectedClass;
     public $selectedDate;
@@ -21,6 +21,15 @@ class SelectedClassAttendanceChart extends ChartWidget
     #[On('date-selected')]
     public function setDateValue($selecteddate){
         $this->selectedDate = $selecteddate;
+    }
+
+    public function getHeading(): string|Htmlable|null
+    {
+        if(!empty($this->selectedClass)){
+            return $this->selectedClass;
+        }else{
+            return 'Select Class to display chart';
+        }
     }
 
 
