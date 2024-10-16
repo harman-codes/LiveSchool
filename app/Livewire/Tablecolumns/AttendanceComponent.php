@@ -24,10 +24,19 @@ class AttendanceComponent extends Component
 
     public function markAttendance($option)
     {
+
+//        Notify::success($this->attendanceOption==$option ? 'Marked already':'Not Marked');
+
+
         if(!empty($this->record->id)&&!empty($this->selectedDate)&&!empty($this->selectedClass)){
             $day = $this->day;
             $month = $this->month;
             $year = $this->year;
+
+            //If button pressed of already marked attendance. Unmark it. set empty value.
+            if($this->attendanceOption==$option){
+                $option = '';
+            }
 
             Attendance::updateOrCreate(
                 [
