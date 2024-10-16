@@ -96,16 +96,10 @@ class StudentResource extends Resource
                 //------Filter Ends-----//
             ], layout: Tables\Enums\FiltersLayout::AboveContent)
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('studentdetails')
                     ->label('Assign')
                     ->icon('heroicon-o-plus-circle')
                     ->form(function ($record) {
-//                        $sessionyear =  $record->studentdetails->where('student_id',$record->id)?->first()?->sessionyear;
-//                        $schoolclass_id = $record->studentdetails->where('student_id', $record->id)?->where('sessionyear', SessionYears::currentSessionYear())?->first()?->schoolclass_id;
-//                        $rollno = $record->studentdetails->where('student_id', $record->id)->where('sessionyear', SessionYears::currentSessionYear())?->first()?->rollno;
-
-
                         return [
                             Forms\Components\Select::make('sessionyear')
                                 ->label('Current Session')
@@ -140,8 +134,11 @@ class StudentResource extends Resource
                         if ($updateOrCreateRecord) {
                             Notify::success('Saved Successfully');
                         }
-
                     }),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

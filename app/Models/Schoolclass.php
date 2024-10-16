@@ -33,6 +33,13 @@ class Schoolclass extends Model
         return $this->belongsToMany(Announcement::class);
     }
 
+
+    public function schoolclasses(): BelongsToMany
+    {
+        return $this->belongsToMany(FeeStructure::class)
+            ->withPivot('sessionyear');
+    }
+
 //    public function classtests()
 //    {
 //        return $this->hasMany(Classtest::class);

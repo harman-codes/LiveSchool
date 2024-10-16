@@ -65,8 +65,12 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                ->icon('heroicon-m-pencil-square')
+                ->iconButton(),
+                Tables\Actions\DeleteAction::make()
+                ->icon('heroicon-m-trash')
+                ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
