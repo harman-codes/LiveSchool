@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Helpers\Role;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -41,17 +42,14 @@ class UserResource extends Resource
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
                 Forms\Components\Select::make('role')
-                ->options([
-                    'admin' => 'Admin',
-                    'principal' => 'Principal',
-                    'teacher' => 'Teacher',
-                ])
+                ->options(Role::$rolesKeyValuePair)
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
             ->modifyQueryUsing(function (Builder $query) {
                 //Hide Admin record from the table
                 return $query->where('id', '!=', 1);
@@ -59,8 +57,11 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('role'),
-            ])
+//                Tables\Columns\TextColumn::make('role'),
+                Tables\Columns\SelectColumn::make('role')
+                    ->options(Role::$rolesKeyValuePair)
+                    ->visible(Role::isAdminOrPrincipal()),
+                ])
             ->filters([
                 //
             ])

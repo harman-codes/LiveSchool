@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('mobile')->unique();
             $table->text('address')->nullable();
-            $table->enum('role', ['admin','principal','teacher'])->default('teacher');
+            $table->string('role');
+//            $table->enum('role', ['admin','principal','teacher'])->default('teacher');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
