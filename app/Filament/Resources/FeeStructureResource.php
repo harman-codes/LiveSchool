@@ -21,6 +21,12 @@ class FeeStructureResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
+    protected static ?string $navigationGroup = 'Fee Management';
+
+    protected static ?string $navigationLabel = 'Fee Structure';
+
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form

@@ -9,9 +9,11 @@ use App\Models\Schoolclass;
 use App\Models\Student;
 use App\Tables\Columns\AttendanceColumn;
 use Carbon\Carbon;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -86,7 +88,7 @@ class Attendance extends Page implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                // ...
+                //--
             ])
             ->bulkActions([
                 // ...

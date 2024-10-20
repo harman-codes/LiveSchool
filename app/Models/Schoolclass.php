@@ -33,8 +33,7 @@ class Schoolclass extends Model
         return $this->belongsToMany(Announcement::class);
     }
 
-
-    public function schoolclasses(): BelongsToMany
+    public function feeStructures(): BelongsToMany
     {
         return $this->belongsToMany(FeeStructure::class)
             ->withPivot('sessionyear');
