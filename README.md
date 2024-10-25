@@ -8,7 +8,7 @@ Follow the steps to install "Student Management System" :
 - npm install
 - cp .env.example .env
 - php artisan key:generate
-- Add mySql database details in .env file
+- Add MySQL database details in .env file. For sqlite database, create a file in "database" folder named "database.sqlite"
 - php artisan migrate
 - php artisan db:seed
 - php artisan storage:link
