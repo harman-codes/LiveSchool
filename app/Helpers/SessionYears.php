@@ -30,7 +30,7 @@ class SessionYears{
 
     public static function currentSessionYear()
     {
-        return CurrentSessionYear::find(1)->first()->sessionyear;
+        return CurrentSessionYear::find(1)?->first()?->sessionyear;
     }
 
 }
