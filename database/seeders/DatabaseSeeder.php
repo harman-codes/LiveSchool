@@ -47,7 +47,20 @@ class DatabaseSeeder extends Seeder
 
         /*Add Students*/
         if(empty(Student::count())){
-            Student::factory(100)
+            Student::factory()->create([
+                'name' => 'John Doe',
+                'gender' => 'm',
+                'dob' => fake()->date('d-m-Y'),
+                'mobile' => 9999999999,
+                'email' => 'parent@test.com',
+                'fathername' => 'Mike Doe',
+                'mothername' => 'Michael',
+                'address' => '123, Test Street, NY, USA',
+                'username' => 'parent@test.com',
+                'password' => 1234
+            ]);
+
+            Student::factory(99)
 //                ->has(Studentdetail::factory()->count(1), 'studentdetails')
                 ->create();
         }
