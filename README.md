@@ -1,3 +1,18 @@
+## LiveSchool - Student Management System
+LiveSchool is an innovative student management software designed to streamline and digitize a wide array of school activities related to students. By transforming traditional school operations into an online format, LiveSchool enhances the efficiency and accessibility of essential educational processes.
+
+## Features
+- Realtime Attendance
+- Class Test Marks & Details
+- Exam Details & Marks
+- Performance Indicators
+- Live Van Location
+- Announcements
+- Activity/Events Calendar
+- Syllabus/Notes
+- Fee Details
+- Student Profile
+
 ## Installation
 
 Follow the steps to install "Student Management System" :
