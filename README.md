@@ -19,8 +19,16 @@ Follow the steps to install "Student Management System" :
 Please Note : "php artisan db:seed" command is used to add dummy data to the database.
 
 ## Default Login
+Admin Login : 
+- Url : http://localhost:8000/admin
 - username/Email : admin@test.com
 - password : 1234
+
+Parent Login :
+- Url : http://localhost:8000/parent
+- username/Email : parent@test.com
+- password : 1234
+
 
 You can change the default login at "database/seeders/DatabaseSeeder.php"
 
