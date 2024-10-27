@@ -17,7 +17,7 @@ LiveSchool is an innovative student management software designed to streamline a
 
 Follow the steps to install "Student Management System" :
 
-- git clone "https://github.com/harmanrulez/student-management-system.git"
+- git clone "https://github.com/harman-codes/student-management-system.git"
 - cd student-management-system
 - composer install
 - npm install

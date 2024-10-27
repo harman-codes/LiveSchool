@@ -30,8 +30,8 @@ class UserFactory extends Factory
             'password' => 1234,
             'email' => fake()->unique()->safeEmail(),
             'mobile' => rand(1111111111, 9999999999),
-            'address' => fake()->streetAddress(),
             'role' => 'teacher',
+            'address' => fake()->streetAddress(),
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
         ];
