@@ -10,4 +10,4 @@ Current version is being supported with security updates.
 
 ## Reporting a Vulnerability
 
-Email us at hi@liveschool.online
+Email us : hi@liveschool.online
