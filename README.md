@@ -77,6 +77,9 @@ Parent Login :
 
 You can change the default login at "database/seeders/DatabaseSeeder.php"
 
+## Google Map
+Add **MAP_KEY="your_google_map_key"** in .env file
+
 ## License
 
 The LiveSchool is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
