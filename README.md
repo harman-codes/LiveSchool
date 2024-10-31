@@ -80,6 +80,12 @@ You can change the default login at "database/seeders/DatabaseSeeder.php"
 ## Google Map
 Add **MAP_KEY="your_google_map_key"** in .env file
 
+## Support
+Kindly support us by giving stars to the repository.
+
+## Contact
+Reach us : hi@liveschool.online
+
 ## License
 
 The LiveSchool is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
