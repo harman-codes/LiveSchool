@@ -80,7 +80,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SectionSeeder::class,
             SchoolclassSeeder::class,
-            SubjectSeeder::class
+            SubjectSeeder::class,
+            PerformanceIndicatorSeeder::class
         ]);
 
     }
