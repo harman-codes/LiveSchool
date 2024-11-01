@@ -50,9 +50,11 @@ class ExamSubjectWiseMarks extends Page
     public function getAllExamsSubjects()
     {
         $subjectsArray = [];
-        foreach($this?->studentdetails?->schoolclass?->exams as $exam){
-            foreach($exam->subjects as $subject){
-                $subjectsArray[] = $subject->name;
+        if($this?->studentdetails?->schoolclass?->exams){
+            foreach($this?->studentdetails?->schoolclass?->exams as $exam){
+                foreach($exam->subjects as $subject){
+                    $subjectsArray[] = $subject->name;
+                }
             }
         }
         return array_unique($subjectsArray);

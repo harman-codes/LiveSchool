@@ -26,30 +26,32 @@ class ExamTotalMarksChart extends ChartWidget
         $percentages = [];
         $colors = [];
 
-        foreach ($examsRows as $row) {
-            $totalMarks = (int)$row->totalmarks;
+        if(!empty($examsRows)){
+            foreach ($examsRows as $row) {
+                $totalMarks = (int)$row->totalmarks;
 
-            $totalMarksObtained = (int)Exammark::where([
-                ['student_id', auth('parent')->user()->id],
-                ['exam_id', $row->id]
-            ])?->first()?->totalmarksobtained;
+                $totalMarksObtained = (int)Exammark::where([
+                    ['student_id', auth('parent')->user()->id],
+                    ['exam_id', $row->id]
+                ])?->first()?->totalmarksobtained;
 
 //            info($totalMarks);
 //            info($row->id);
 
-            $examNames[] = $row->examname;
-            $percentage = $totalMarksObtained/$totalMarks*100;
-            $percentages[] = round($percentage, 2);
+                $examNames[] = $row->examname;
+                $percentage = $totalMarksObtained/$totalMarks*100;
+                $percentages[] = round($percentage, 2);
 
-            if(!empty(PerformanceIndicator::all())){
-                foreach(PerformanceIndicator::all() as $singleIndicator){
-                    if(round($percentage)>=$singleIndicator->min&&round($percentage)<=$singleIndicator->max){
-                        $colors[] = $singleIndicator->color;
-                        break;
+                if(!empty(PerformanceIndicator::all())){
+                    foreach(PerformanceIndicator::all() as $singleIndicator){
+                        if(round($percentage)>=$singleIndicator->min&&round($percentage)<=$singleIndicator->max){
+                            $colors[] = $singleIndicator->color;
+                            break;
+                        }
                     }
                 }
-            }
 
+            }
         }
 
         return [

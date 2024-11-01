@@ -34,9 +34,14 @@ class ExamTotalMarks extends Page implements HasForms, HasTable
     {
         return $table
             ->query(function(){
-                return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+                $exams = Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
                     $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
                 })?->first()?->studentdetails?->first()?->schoolclass?->exams();
+                if(!empty($exams)){
+                    return $exams;
+                }else{
+                    return Student::where('id', auth('parent')->user()->id);
+                }
             })
             ->columns([
                 TextColumn::make('examname')
@@ -54,7 +59,11 @@ class ExamTotalMarks extends Page implements HasForms, HasTable
                     ->getStateUsing(function($record){
                         $totalMarks = (int)$record->totalmarks;
                         $marksObtained = (int)Exammark::where('student_id', auth('parent')->user()->id)->where('exam_id', $record->id)?->first()?->totalmarksobtained;
-                        return round($marksObtained/$totalMarks*100, 2);
+                        if(!empty($totalMarks)){
+                            return round($marksObtained/$totalMarks*100, 2);
+                        }else{
+                            return '';
+                        }
                     }),
             ])
             ->filters([
