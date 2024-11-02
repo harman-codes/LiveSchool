@@ -1,3 +1,5 @@
+![LiveSchool Banner](https://liveschool.online/wp-content/uploads/2024/11/Banner-1-for-GIthub.jpg)
+
 ## LiveSchool - Student Management System
 LiveSchool is an innovative student and school management software designed to streamline and digitize a wide array of school activities related to students. By transforming traditional school operations into an online format, LiveSchool enhances the efficiency and accessibility of essential educational processes.
 
@@ -52,6 +54,7 @@ php artisan db:seed
 ```
 php artisan storage:link
 ```
+- Open .env file and set APP_DEBUG=false
 - Run development server
 ```
 npm run dev
@@ -60,7 +63,7 @@ npm run dev
 ```
 php artisan serve
 ```
-- open http://localhost:8000 in your browser
+- open http://localhost:8000/admin in your browser
 
 
 ## Default Login
