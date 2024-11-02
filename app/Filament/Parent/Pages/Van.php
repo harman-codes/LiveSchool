@@ -14,6 +14,8 @@ class Van extends Page
 
     protected static ?string $title = 'Van Location';
 
+    protected static ?int $navigationSort = 4;
+
     public $selectedVan;
     public $datetime;
     public $location;

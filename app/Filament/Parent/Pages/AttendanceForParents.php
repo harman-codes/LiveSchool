@@ -16,6 +16,8 @@ class AttendanceForParents extends Page
 
     protected static ?string $title = 'Attendance';
 
+    protected static ?int $navigationSort = 1;
+
     public $selectedYear;
     public $selectedMonth;
 

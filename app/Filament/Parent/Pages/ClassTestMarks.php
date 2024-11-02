@@ -26,6 +26,8 @@ class ClassTestMarks extends Page implements HasForms, HasTable
 
     protected static string $view = 'filament.parent.pages.class-test-marks';
 
+    protected static ?int $navigationSort = 6;
+
     public function table(Table $table): Table
     {
         return $table

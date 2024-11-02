@@ -12,6 +12,8 @@ class Announcements extends Page
 
     protected static string $view = 'filament.parent.pages.announcements';
 
+    protected static ?int $navigationSort = 4;
+
     public function getAllAnnouncements()
     {
         return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){

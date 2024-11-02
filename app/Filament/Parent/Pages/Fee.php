@@ -24,6 +24,8 @@ class Fee extends Page implements HasForms, HasTable
 
     protected static string $view = 'filament.parent.pages.fee';
 
+    protected static ?int $navigationSort = 5;
+
 
     public function table(Table $table): Table
     {
