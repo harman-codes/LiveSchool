@@ -35,6 +35,14 @@ class SectionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->paginated(false)
+            ->reorderable('sort')
+            ->defaultSort('sort')
+            ->reorderRecordsTriggerAction(
+                fn (Tables\Actions\Action $action, bool $isReordering) => $action
+                    ->button()
+                    ->label($isReordering ? 'Disable reordering' : 'Enable reordering'),
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
             ])
@@ -43,6 +51,7 @@ class SectionResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -62,8 +71,8 @@ class SectionResource extends Resource
     {
         return [
             'index' => Pages\ListSections::route('/'),
-            'create' => Pages\CreateSection::route('/create'),
-            'edit' => Pages\EditSection::route('/{record}/edit'),
+//            'create' => Pages\CreateSection::route('/create'),
+//            'edit' => Pages\EditSection::route('/{record}/edit'),
         ];
     }
 }

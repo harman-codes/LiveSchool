@@ -74,8 +74,9 @@ class SchoolclassResource extends Resource
                     ->button()
                     ->label($isReordering ? 'Disable reordering' : 'Enable reordering'),
             )
-            ->paginated(false)
+//            ->paginated(false)
             ->recordUrl(false)
+            ->defaultSort('sort', 'asc')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('section'),
@@ -87,7 +88,6 @@ class SchoolclassResource extends Resource
                 ->badge(),
 //                TestColumn::make('Test Column')
             ])
-            ->defaultSort('sort', 'asc')
             ->filters([
                 //
             ])
