@@ -8,6 +8,10 @@ use App\Helpers\Role;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Split;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -87,9 +91,9 @@ class UserResource extends Resource
             })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('mobile')
-                ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email'),
 //                Tables\Columns\TextColumn::make('role'),
                 Tables\Columns\SelectColumn::make('role')
@@ -100,12 +104,9 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->icon('heroicon-m-pencil-square')
-                    ->iconButton(),
-                Tables\Actions\DeleteAction::make()
-                    ->icon('heroicon-m-trash')
-                    ->iconButton(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -113,6 +114,35 @@ class UserResource extends Resource
                 ]),
             ]);
     }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Split::make([
+                    /*Section 1*/
+                    Section::make()
+                        ->columns([
+                            'md' => 3,
+                        ])
+                        ->schema([
+                            TextEntry::make('name'),
+                            TextEntry::make('mobile'),
+                            TextEntry::make('email'),
+                            TextEntry::make('address')
+                                ->columnSpan('full'),
+                        ]),
+
+                    /*Section 2*/
+                    Section::make()
+                        ->schema([
+                            TextEntry::make('username'),
+                            TextEntry::make('role'),
+                        ])->grow(false)
+                ])->from('md')->columnSpan('full'),
+            ]);
+    }
+
 
     public static function getRelations(): array
     {
