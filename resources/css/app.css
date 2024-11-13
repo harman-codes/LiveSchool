@@ -1,17 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
 
 .fi-body{
-    @apply bg-slate-100;
+    @apply bg-slate-200 dark:bg-dullblack;
 }
 
 .fi-sidebar-nav{
-    @apply bg-gradient-to-br from-slate-800 to-slate-700 dark:bg-none;
+    @apply bg-gradient-to-br from-slate-800 to-slate-700 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-900;
+    @apply dark:border-r-2 dark:border-gray-800;
 }
 
 .fi-sidebar-header{
-    @apply bg-blue-900;
+    @apply bg-blue-900 dark:bg-gray-800;
 }
 
 .fi-logo{
@@ -26,20 +28,22 @@
     @apply text-white;
 }
 
-li.fi-sidebar-item.fi-active .fi-sidebar-item-label{
-    @apply text-blue-800;
-}
-
+li.fi-sidebar-item.fi-active .fi-sidebar-item-label,
 li.fi-sidebar-item.fi-active .fi-sidebar-item-icon{
-    @apply text-blue-800;
+    @apply text-blue-800 dark:text-blue-500;
 }
 
-li.fi-sidebar-item:hover .fi-sidebar-item-label{
-    @apply text-blue-800;
-}
+/*li.fi-sidebar-item.fi-active .fi-sidebar-item-icon{*/
+/*    @apply text-blue-800;*/
+/*}*/
+
+li.fi-sidebar-item:hover .fi-sidebar-item-label,
 li.fi-sidebar-item:hover .fi-sidebar-item-icon{
-    @apply text-blue-800;
+    @apply text-blue-800 dark:text-teal-300;
 }
+/*li.fi-sidebar-item:hover .fi-sidebar-item-icon{*/
+/*    @apply text-blue-800;*/
+/*}*/
 
 .fi-sidebar-group-label{
     @apply text-gray-300;
@@ -103,4 +107,17 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
 }
 .swiper-slide img {
     @apply block w-full h-full object-contain;
+}
+
+/*Other styles*/
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .fi-sidebar-nav::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .fi-sidebar-nav {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
 }
