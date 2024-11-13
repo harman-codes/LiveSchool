@@ -27,27 +27,11 @@ class StudentResource extends Resource
         return Student::count();
     }
 
-//    public static function getEloquentQuery(): Builder
-//    {
-//        return parent::getEloquentQuery()->withWhereHas('studentdetails', function($query){
-//                    return $query->where('sessionyear', '2024-25')->with(['schoolclass']);
-//                })->orWhere(function($query){
-//                    return $query->doesntHave('studentdetails');
-//                });
-//    }
-
 
 
     public static function table(Table $table): Table
     {
         return $table
-//            ->modifyQueryUsing(function($query){
-//                return $query->withWhereHas('studentdetails', function($query){
-//                    $query->where('sessionyear', '2024-25')->with(['schoolclass']);
-//                })->orWhere(function($query){
-//                    $query->doesntHave('studentdetails');
-//                });
-//            })
             ->recordUrl(null)
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(25)
@@ -62,18 +46,9 @@ class StudentResource extends Resource
                     ->label('Class')
                     ->listWithLineBreaks()
                     ->searchable(),
-
-//                Tables\Columns\TextColumn::make('Class')
-//                ->state(function($record){
-//                    return $record->studentdetails?->first()?->schoolclass?->classwithsection;
-//                }),
                 Tables\Columns\TextColumn::make('studentdetails.rollno')
                     ->label('Roll No')
                     ->listWithLineBreaks(),
-//                Tables\Columns\TextColumn::make('Test Col')
-//                ->state(function($record){
-//                    return $record->studentdetails;
-//                }),
             ])
             ->filters([
                 //--------Filter--------//
@@ -99,6 +74,8 @@ class StudentResource extends Resource
                 Tables\Actions\Action::make('studentdetails')
                     ->label('Assign')
                     ->icon('heroicon-o-plus-circle')
+                    ->iconButton()
+                    ->color('success')
                     ->form(function ($record) {
                         return [
                             Forms\Components\Select::make('sessionyear')
@@ -135,10 +112,8 @@ class StudentResource extends Resource
                             Notify::success('Saved Successfully');
                         }
                     }),
-                Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

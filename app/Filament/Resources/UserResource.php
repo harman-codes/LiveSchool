@@ -12,8 +12,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -32,17 +30,50 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('email')->unique(ignoreRecord: true)->email()->required(),
-                Forms\Components\TextInput::make('mobile')->unique(ignoreRecord: true)->tel()->unique(ignoreRecord: true)->required(),
-                Forms\Components\TextInput::make('address')->nullable(),
-                Forms\Components\TextInput::make('username')->unique(ignoreRecord: true)->required(),
-                Forms\Components\TextInput::make('password')->password()
-                    ->password()
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create'),
-                Forms\Components\Select::make('role')
-                ->options(Role::$rolesKeyValuePair)
+                /*Section 1*/
+                Forms\Components\Section::make()
+                    ->columns([
+                        'sm' => 1,
+                        'md' => 1,
+                        'lg' => 3,
+                    ])
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required(),
+                        Forms\Components\TextInput::make('mobile')
+                            ->unique(ignoreRecord: true)
+                            ->tel()
+                            ->required(),
+                        Forms\Components\TextInput::make('email')
+                            ->unique(ignoreRecord: true)
+                            ->email()
+                            ->required(),
+                        Forms\Components\Textarea::make('address')
+                            ->nullable()
+                            ->columnSpan([
+                                'sm' => 1,
+                                'md' => 2,
+                            ]),
+                    ]),
+
+                /*Section 2*/
+                Forms\Components\Section::make()
+                    ->columns([
+                        'sm' => 1,
+                        'md' => 2,
+                        'lg' => 3,
+                    ])
+                    ->schema([
+                        Forms\Components\TextInput::make('username')
+                            ->unique(ignoreRecord: true)
+                            ->required(),
+                        Forms\Components\TextInput::make('password')->password()
+                            ->password()
+                            ->dehydrated(fn($state) => filled($state))
+                            ->required(fn(string $context): bool => $context === 'create'),
+                        Forms\Components\Select::make('role')
+                            ->options(Role::$rolesKeyValuePair),
+                    ])
             ]);
     }
 
@@ -55,23 +86,26 @@ class UserResource extends Resource
                 return $query->where('id', '!=', 1);
             })
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('mobile')
+                ->searchable(),
                 Tables\Columns\TextColumn::make('email'),
 //                Tables\Columns\TextColumn::make('role'),
                 Tables\Columns\SelectColumn::make('role')
                     ->options(Role::$rolesKeyValuePair)
                     ->visible(Role::isAdminOrPrincipal()),
-                ])
+            ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->icon('heroicon-m-pencil-square')
-                ->iconButton(),
+                    ->icon('heroicon-m-pencil-square')
+                    ->iconButton(),
                 Tables\Actions\DeleteAction::make()
-                ->icon('heroicon-m-trash')
-                ->iconButton(),
+                    ->icon('heroicon-m-trash')
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -92,7 +126,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+//            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

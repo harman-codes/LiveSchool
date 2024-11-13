@@ -121,3 +121,8 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
         scrollbar-width: none;  /* Firefox */
     }
 }
+
+/*Test*/
+/*table{*/
+/*    @apply bg-slate-100;*/
+/*}*/

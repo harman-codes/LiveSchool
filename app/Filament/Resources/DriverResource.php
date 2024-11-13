@@ -5,16 +5,17 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DriverResource\Pages;
 use App\Filament\Resources\DriverResource\RelationManagers;
 use App\Models\Driver;
-use Filament\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DriverResource extends Resource
 {
@@ -41,7 +42,7 @@ class DriverResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state))
+                    ->dehydrated(fn($state) => filled($state))
                     ->required(fn(string $context): bool => $context === 'create'),
             ]);
     }
@@ -52,36 +53,31 @@ class DriverResource extends Resource
             ->recordUrl(null)
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('mobile')
-                ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('van')
-                ->label('Vehicle No')
-                ->searchable(),
+                    ->label('Vehicle No')
+                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_switchon')
+                    ->label('Location Status')
+                    ->boolean()
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('Location On')
+                    ->query(function (Builder $query, array $data) {
+                        return $query->where('is_switchon', 1);
+                    }),
+                Tables\Filters\Filter::make('Location Off')
+                    ->query(function (Builder $query, array $data) {
+                        return $query->where('is_switchon', 0);
+                    })
             ])
             ->actions([
-                Tables\Actions\Action::make('view')
-                    ->icon('heroicon-o-eye')
-                ->infolist(function(Driver $record){
-                    return [
-                        TextEntry::make('name'),
-                        TextEntry::make('mobile'),
-                        TextEntry::make('email'),
-                        TextEntry::make('address'),
-                        TextEntry::make('van')->label('Vehicle No'),
-                        IconEntry::make('is_switchon')
-                            ->label('Location Status')
-                            ->boolean()
-                    ];
-                }),
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make()
-                ]),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -89,6 +85,35 @@ class DriverResource extends Resource
                 ]),
             ]);
     }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Split::make([
+                    Section::make()
+                        ->columns([
+                            'sm' => 1,
+                            'md' => 3,
+                        ])
+                        ->schema([
+                            TextEntry::make('name'),
+                            TextEntry::make('mobile'),
+                            TextEntry::make('email'),
+                            TextEntry::make('address')->columnSpan('full'),
+                        ]),
+
+                    Section::make()
+                        ->schema([
+                            TextEntry::make('van')->label('Vehicle No'),
+                            IconEntry::make('is_switchon')
+                                ->label('Location Status')
+                                ->boolean(),
+                        ])->grow(false)
+                ])->columnSpan('full')->from('lg')
+            ]);
+    }
+
 
     public static function getRelations(): array
     {

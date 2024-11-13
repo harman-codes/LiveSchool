@@ -47,6 +47,7 @@ class PerformanceIndicatorResource extends Resource
     {
         return $table
             ->recordUrl(null)
+            ->paginated(false)
             ->columns([
                 Tables\Columns\TextColumn::make('min')
                 ->label('Min (>=)'),
@@ -80,8 +81,8 @@ class PerformanceIndicatorResource extends Resource
     {
         return [
             'index' => Pages\ListPerformanceIndicators::route('/'),
-            'create' => Pages\CreatePerformanceIndicator::route('/create'),
-            'edit' => Pages\EditPerformanceIndicator::route('/{record}/edit'),
+//            'create' => Pages\CreatePerformanceIndicator::route('/create'),
+//            'edit' => Pages\EditPerformanceIndicator::route('/{record}/edit'),
         ];
     }
 }
