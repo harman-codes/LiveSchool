@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CurrentSessionYear;
 use App\Models\Driver;
+use App\Models\Holiday;
 use App\Models\Schoolclass;
 use App\Models\Student;
 use App\Models\Studentdetail;
@@ -76,12 +77,12 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
         $this->call([
             SectionSeeder::class,
             SchoolclassSeeder::class,
             SubjectSeeder::class,
-            PerformanceIndicatorSeeder::class
+            PerformanceIndicatorSeeder::class,
+            HolidaySeeder::class,
         ]);
 
     }
