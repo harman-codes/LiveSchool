@@ -205,8 +205,8 @@ class SchoolclassResource extends Resource
     {
         return [
             'index' => Pages\ListSchoolclasses::route('/'),
-            'create' => Pages\CreateSchoolclass::route('/create'),
-            'edit' => Pages\EditSchoolclass::route('/{record}/edit'),
+//            'create' => Pages\CreateSchoolclass::route('/create'),
+//            'edit' => Pages\EditSchoolclass::route('/{record}/edit'),
         ];
     }
 }

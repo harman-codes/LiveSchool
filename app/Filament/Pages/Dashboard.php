@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\CalendarWidget;
+use App\Filament\Widgets\CalendarViewOnlyWidget;
 use App\Filament\Widgets\FullSchoolAttendanceChart;
 use App\Helpers\DT;
 use App\Models\Schoolclass;
@@ -20,15 +20,15 @@ class Dashboard extends \Filament\Pages\Dashboard
         return $form
             ->schema([
                 DatePicker::make('dateforattendance')
-                ->label('Date')
-                ->default(DT::currentDate()),
+                    ->label('Date')
+                    ->default(DT::currentDate()),
                 Select::make('classforattendance')
                     ->label('Class')
-                ->options(function (){
-                    $classes = Schoolclass::query()->orderBy('sort','asc')->pluck('classwithsection', 'classwithsection')->toArray();
-                    return ['wholeschool' => 'School'] + $classes;
-                })
-                ->default('wholeschool')
+                    ->options(function () {
+                        $classes = Schoolclass::query()->orderBy('sort', 'asc')->pluck('classwithsection', 'classwithsection')->toArray();
+                        return ['wholeschool' => 'School'] + $classes;
+                    })
+                    ->default('wholeschool')
             ]);
     }
 
@@ -36,14 +36,15 @@ class Dashboard extends \Filament\Pages\Dashboard
     {
         return [
             FullSchoolAttendanceChart::class,
+            CalendarViewOnlyWidget::class,
         ];
     }
 
-//    public function getColumns(): int | string | array
-//    {
-//        return [
-//            'md' => 2,
-//            'xl' => 2,
-//        ];
-//    }
+    public function getColumns(): int | string | array
+    {
+        return [
+            'md' => 2,
+            'xl' => 2,
+        ];
+    }
 }

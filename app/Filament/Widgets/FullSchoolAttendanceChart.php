@@ -14,6 +14,11 @@ class FullSchoolAttendanceChart extends ChartWidget
 
 //    protected static ?string $description = 'Attendance of students';
 
+//    protected int | string | array $columnSpan = [
+//        'md' => 1,
+//        'xl' => 2,
+//    ];
+
     protected function getData(): array
     {
         $selectedDate = $this->filters['dateforattendance'] ?? null;
