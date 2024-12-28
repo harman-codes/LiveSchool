@@ -3,11 +3,13 @@
 namespace App\Filament\Parent\Pages;
 
 use App\Helpers\SessionYears;
-use App\Models\Student;
 use Filament\Pages\Page;
+use Livewire\WithPagination;
 
 class Announcements extends Page
 {
+    use WithPagination;
+
     protected static ?string $navigationIcon = 'heroicon-o-speaker-wave';
 
     protected static string $view = 'filament.parent.pages.announcements';
@@ -16,8 +18,8 @@ class Announcements extends Page
 
     public function getAllAnnouncements()
     {
-        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+        return auth('parent')->user()->withWhereHas('studentdetails', function ($query) {
             $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
-        })?->first()?->studentdetails?->first()?->schoolclass?->announcements()->get();
+        })->first()?->studentdetails?->first()?->schoolclass?->announcements()->where('is_published', true)?->paginate(10);
     }
 }
