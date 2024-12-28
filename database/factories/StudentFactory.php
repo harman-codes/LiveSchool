@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Helpers\SessionYears;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -32,7 +33,8 @@ class StudentFactory extends Factory
             'mothername' => fake()->name(),
             'address' => fake()->address(),
             'username' => $email,
-            'password' => 1234
+            'password' => 1234,
+            'selectedsessionyear' => SessionYears::currentSessionYear()
         ];
     }
 }

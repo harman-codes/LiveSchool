@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\SessionYears;
 use App\Models\CurrentSessionYear;
 use App\Models\Driver;
 use App\Models\Holiday;
@@ -27,22 +28,39 @@ class DatabaseSeeder extends Seeder
 //        ]);
 
 
+        /*Set current session year*/
+        if(empty(CurrentSessionYear::count())){
+            CurrentSessionYear::insert([
+                'sessionyear' => '2024-25'
+            ]);
+        }
+
+        /*Add data*/
+        $this->call([
+            SectionSeeder::class,
+            SchoolclassSeeder::class,
+            SubjectSeeder::class,
+            PerformanceIndicatorSeeder::class,
+            HolidaySeeder::class,
+        ]);
 
         /*Add users*/
         if(empty(User::count())){
             //Create Admin
             User::factory()->create([
-                'name' => 'Admin',
+                'name' => 'Admin User',
                 'username' => 'admin',
                 'password' => 1234,
                 'email' => 'admin@test.com',
                 'mobile' => 9988776655,
-                'role' => 'admin',
+                'role' => 'management',
+                'is_admin' => true,
                 'address' => 'Admin address, ABC School, NY, USA',
+                'selectedsessionyear' => SessionYears::currentSessionYear()
             ]);
 
             //create teachers
-            User::factory(50)->create();
+            User::factory(10)->create();
         }
 
 
@@ -58,10 +76,11 @@ class DatabaseSeeder extends Seeder
                 'mothername' => 'Michael',
                 'address' => '123, Test Street, NY, USA',
                 'username' => 'parent@test.com',
-                'password' => 1234
+                'password' => 1234,
+                'selectedsessionyear' => SessionYears::currentSessionYear()
             ]);
 
-            Student::factory(99)
+            Student::factory(30)
 //                ->has(Studentdetail::factory()->count(1), 'studentdetails')
                 ->create();
         }
@@ -70,20 +89,6 @@ class DatabaseSeeder extends Seeder
         if(empty(Driver::count())){
             Driver::factory(10)->create();
         }
-
-        if(empty(CurrentSessionYear::count())){
-            CurrentSessionYear::insert([
-                'sessionyear' => '2024-25'
-            ]);
-        }
-
-        $this->call([
-            SectionSeeder::class,
-            SchoolclassSeeder::class,
-            SubjectSeeder::class,
-            PerformanceIndicatorSeeder::class,
-            HolidaySeeder::class,
-        ]);
 
     }
 }
