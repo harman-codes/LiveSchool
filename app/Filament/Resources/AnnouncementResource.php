@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AnnouncementResource\Pages;
 use App\Filament\Resources\AnnouncementResource\RelationManagers;
 use App\Helpers\Notify;
+use App\Helpers\Role;
 use App\Helpers\SessionYears;
 use App\Models\Announcement;
 use Carbon\Carbon;
@@ -92,7 +93,7 @@ class AnnouncementResource extends Resource
                 Tables\Columns\ToggleColumn::make('is_published')
                     ->label('Approve')
                     ->hidden(function () {
-                        return auth()->user()->role !== 'admin';
+                        return !Role::isAdminOrManagementOrPrincipalOrManager();
                     })
                     ->onColor('success')
                     ->offColor('danger')
