@@ -21,6 +21,8 @@ class PerformanceIndicatorResource extends Resource
 
     protected static ?string $navigationLabel = 'Indicator';
 
+    protected static ?string $navigationGroup = 'Exams';
+
 
     public static function form(Form $form): Form
     {
