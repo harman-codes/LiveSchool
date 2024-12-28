@@ -45,6 +45,11 @@ li.fi-sidebar-item:hover .fi-sidebar-item-icon{
 /*    @apply text-blue-800;*/
 /*}*/
 
+/*Navigation Animation Duration (Optional)*/
+ul.fi-sidebar-group-items li.fi-sidebar-item a.fi-sidebar-item-button{
+    @apply duration-300;
+} /**/
+
 .fi-sidebar-group-label{
     @apply text-gray-300;
 }
@@ -80,7 +85,7 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
     @apply flex gap-2 flex-col justify-center md:justify-between md:flex-row;
 }
 
-/*Modal Stles*/
+/*Modal Styles*/
 .fi-modal-window{
     @apply bg-gradient-to-br from-blue-100 to-pink-100 dark:bg-none;
 }
