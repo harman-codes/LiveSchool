@@ -39,6 +39,17 @@ class Schoolclass extends Model
             ->withPivot('sessionyear');
     }
 
+    /*with timetable*/
+    public function timetables(): HasMany
+    {
+        return $this->hasMany(TimeTable::class);
+    }
+    /*has many TimeTableSlot*/
+    public function timetableslots(): HasMany
+    {
+        return $this->hasMany(TimeTableSlot::class);
+    }
+
 //    public function classtests()
 //    {
 //        return $this->hasMany(Classtest::class);
