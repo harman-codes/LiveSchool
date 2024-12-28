@@ -30,7 +30,7 @@ class FeeStructurePolicy
      */
     public function create(User $user): bool
     {
-        return Role::isAdminOrPrincipal() || Role::isFinance();
+        return Role::isAdminOrManagementOrPrincipalOrManager() || Role::isFinance();
     }
 
     /**
@@ -38,7 +38,7 @@ class FeeStructurePolicy
      */
     public function update(User $user, FeeStructure $feeStructure): bool
     {
-        return Role::isAdminOrPrincipal() || Role::isFinance();
+        return Role::isAdminOrManagementOrPrincipalOrManager() || Role::isFinance();
     }
 
     /**
@@ -46,7 +46,7 @@ class FeeStructurePolicy
      */
     public function delete(User $user, FeeStructure $feeStructure): bool
     {
-        return Role::isAdminOrPrincipal() || Role::isFinance();
+        return Role::isAdminOrManagementOrPrincipalOrManager() || Role::isFinance();
     }
 
     /**
