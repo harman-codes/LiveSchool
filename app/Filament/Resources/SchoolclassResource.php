@@ -85,8 +85,8 @@ class SchoolclassResource extends Resource
                 ->searchable(),
                 Tables\Columns\TextColumn::make('subjects.name')
                 ->label('Subjects')
-                ->badge(),
-//                TestColumn::make('Test Column')
+                ->badge()
+                ->wrap(),
             ])
             ->filters([
                 //
@@ -94,7 +94,6 @@ class SchoolclassResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('assignsubjects')
                 ->icon('heroicon-o-document-plus')
-                ->label('')
                 ->color('success')
                 ->form(function(){
                     return [
@@ -116,7 +115,6 @@ class SchoolclassResource extends Resource
                 }),
                 Tables\Actions\Action::make('detachsubjects')
                     ->icon('heroicon-o-document-minus')
-                    ->label('')
                     ->color('danger')
                     ->form(function(Schoolclass $record) {
                         return [
@@ -134,11 +132,8 @@ class SchoolclassResource extends Resource
                             Notify::success('Subjects removed successfully');
                         }
                     }),
-                Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-                ])
-                ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
