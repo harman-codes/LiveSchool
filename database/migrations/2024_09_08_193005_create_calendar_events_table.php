@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('calendar_events', function (Blueprint $table) {
             $table->id();
-            $table->string('sessionyear')->default(SessionYears::currentSessionYear());
+            $table->string('sessionyear')->default(SessionYears::currentSessionYear())->nullable();
             $table->string('title');
             $table->dateTime('starts_at', 0);
             $table->dateTime('ends_at', 0);
