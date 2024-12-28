@@ -30,7 +30,7 @@ class StudentPolicy
      */
     public function create(User $user): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
@@ -38,7 +38,7 @@ class StudentPolicy
      */
     public function update(User $user, Student $student): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
@@ -46,7 +46,7 @@ class StudentPolicy
      */
     public function delete(User $user, Student $student): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
