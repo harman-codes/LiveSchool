@@ -52,7 +52,8 @@ class ClasstestResource extends Resource
                 Select::make('subject')
                     ->options(function(){
                         return Subject::all()->pluck('name', 'name');
-                    }),
+                    })
+                ->required(),
                 TextInput::make('testname')->label('Test Name')->placeholder('For Ex: English Test')->required(),
                 TextInput::make('maxmarks')->integer()->required(),
             ]);
@@ -63,9 +64,10 @@ class ClasstestResource extends Resource
         return $table
             ->recordUrl(null)
             ->columns([
-                Tables\Columns\TextColumn::make('date')->date('d-m-Y')->label('Test Date'),
+                Tables\Columns\TextColumn::make('date')->date('d-m-Y')
+                    ->label('Test Date')
+                ->sortable(),
                 Tables\Columns\TextColumn::make('sessionyear')->label('Session'),
-//                Tables\Columns\TextColumn::make('schoolclass.classwithsection')->label('Class'),
                 Tables\Columns\TextColumn::make('classname')->label('Class'),
                 Tables\Columns\TextColumn::make('subject')->badge(),
                 Tables\Columns\TextColumn::make('testname')->label('Test Name')->searchable(),
@@ -131,8 +133,8 @@ class ClasstestResource extends Resource
     {
         return [
             'index' => Pages\ListClasstests::route('/'),
-            'create' => Pages\CreateClasstest::route('/create'),
-            'edit' => Pages\EditClasstest::route('/{record}/edit'),
+//            'create' => Pages\CreateClasstest::route('/create'),
+//            'edit' => Pages\EditClasstest::route('/{record}/edit'),
         ];
     }
 }
