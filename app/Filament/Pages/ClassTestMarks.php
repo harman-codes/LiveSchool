@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Helpers\Notify;
 use App\Helpers\SessionYears;
 use App\Models\Classtest;
 use App\Models\Schoolclass;
@@ -20,6 +21,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class ClassTestMarks extends Page implements HasForms, HasTable
 {
@@ -38,6 +40,7 @@ class ClassTestMarks extends Page implements HasForms, HasTable
     public ?string $selectedClass = null;
     public ?string $selectedClassTest = null;
     public ?string $maxmarks = null;
+    public ?array $marksObtainedAllClass = null;
 
 
 
@@ -47,14 +50,23 @@ class ClassTestMarks extends Page implements HasForms, HasTable
         $this->reset(['selectedClassTest']);
     }
 
+    //when class test will be selected or changed
     public function updatedSelectedClassTest()
     {
-        $this->maxmarks = Classtest::find($this->selectedClassTest)?->maxmarks;
+        $classtestdata = Classtest::find($this->selectedClassTest);
+        $this->maxmarks = $classtestdata?->maxmarks;
+        $this->marksObtainedAllClass = $classtestdata?->marksobtained;
     }
 
     public function getAllClasses()
     {
         return Schoolclass::all();
+    }
+
+    #[On('marks-set')]
+    public function refreshcomponent()
+    {
+        $this->updatedSelectedClassTest();
     }
 
     public function getClassTests()
@@ -108,15 +120,12 @@ class ClassTestMarks extends Page implements HasForms, HasTable
 //                }),
                 ClassTestMarksObtainedColumn::make('setmarks')
                 ->label('Marks Obtained'),
-            ])
-            ->filters([
-                // ...
-            ], layout: FiltersLayout::AboveContent)
-            ->actions([
-                // ...
-            ])
-            ->bulkActions([
-                // ...
+                TextColumn::make('percentage')
+                ->state(function($record){
+                    if(!empty($this->maxmarks&&$this->marksObtainedAllClass&&$this->maxmarks>0)){
+                        return round(($this->marksObtainedAllClass[$record->id]/$this->maxmarks)*100,2);
+                    }
+                })
             ]);
     }
 }
