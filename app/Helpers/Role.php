@@ -5,7 +5,8 @@ namespace App\Helpers;
 class Role
 {
     public static array $rolesKeyValuePair = [
-        'admin' => 'Admin',
+//        'admin' => 'Admin',
+        'management' => 'Management',
         'principal' => 'Principal',
         'manager' => 'Manager',
         'teacher' => 'Teacher',
@@ -19,7 +20,12 @@ class Role
 
     public static function isAdmin(): bool
     {
-        return auth()->user()->role == 'admin';
+        return auth()->user()->is_admin == true;
+    }
+
+    public static function isManagement(): bool
+    {
+        return auth()->user()->role == 'management';
     }
 
     public static function isPrincipal(): bool
@@ -42,28 +48,9 @@ class Role
         return auth()->user()->role == 'finance';
     }
 
-    public static function isAdminOrPrincipal()
+    public static function isAdminOrManagementOrPrincipalOrManager(): bool
     {
-        if (auth()->user()->role == 'admin') {
-            return true;
-        } elseif (auth()->user()->role == 'principal') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static function isAdminOrPrincipalOrManager()
-    {
-        if (auth()->user()->role == 'admin') {
-            return true;
-        } elseif (auth()->user()->role == 'principal') {
-            return true;
-        }elseif (auth()->user()->role == 'manager') {
-            return true;
-        } else {
-            return false;
-        }
+        return self::isAdmin() || self::isManagement() || self::isPrincipal() || self::isManager();
     }
 
 }
