@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Tablecolumns;
 
+use App\Filament\Pages\ClassTestMarks;
 use App\Helpers\Notify;
 use App\Models\Classtest;
 use Livewire\Component;
@@ -22,6 +23,7 @@ class ClassTestMarksObtained extends Component
             $is_updated = Classtest::where('id', $this->classtestid)->update(['marksobtained->'.$this->record->id => $this->marksobtained]);
             if($is_updated){
                 Notify::success('Marks Updated for '.$this->record->name);
+                $this->dispatch('marks-set')->to(ClassTestMarks::class);
             }
         }
     }
