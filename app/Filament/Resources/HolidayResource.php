@@ -62,6 +62,8 @@ class HolidayResource extends Resource
                 return $query->where('sessionyear', SessionYears::currentSessionYear());
             })
             ->recordUrl(null)
+            ->recordAction(null)
+            ->striped()
             ->reorderable('sort')
             ->defaultSort('sort')
             ->paginated(false)
@@ -69,6 +71,7 @@ class HolidayResource extends Resource
                 Tables\Columns\TextColumn::make('holiday')
                 ->label('Date'),
                 Tables\Columns\TextColumn::make('name')
+                ->label('Holiday')
             ])
             ->filters([
                 //
