@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('admissionno')->nullable();
             $table->string('name');
             $table->enum('gender',['m','f','o']);
             $table->date('dob');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('role')->default('parent');
+            $table->string('selectedsessionyear')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
