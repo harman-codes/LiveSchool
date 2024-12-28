@@ -21,6 +21,7 @@ class Classtest extends Model
     {
         return [
             'marksobtained' => 'array',
+//            'date' => 'date:d-m-Y',
         ];
     }
 
@@ -32,14 +33,14 @@ class Classtest extends Model
         );
     }
 
-    protected function date(): Attribute
-    {
-        return Attribute::make(
-          get: function(mixed $value){
-              return date('d-m-Y', strtotime($value));
-            }
-        );
-    }
+//    protected function date(): Attribute
+//    {
+//        return Attribute::make(
+//          get: function(mixed $value){
+//              return date('d-m-Y', strtotime($value));
+//            }
+//        );
+//    }
 
 
     protected function percentage(): Attribute
