@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string('mobile')->unique();
             $table->text('address')->nullable();
             $table->string('role');
-//            $table->enum('role', ['admin','principal','teacher'])->default('teacher');
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_available')->default(true);
+            $table->boolean('is_admin')->default(false);
+            $table->string('selectedsessionyear')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
