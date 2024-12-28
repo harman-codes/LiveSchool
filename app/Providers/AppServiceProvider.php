@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\Models\Announcement;
 use App\Observers\AnnouncementObserver;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TimePicker;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
@@ -47,12 +50,9 @@ class AppServiceProvider extends ServiceProvider
 
         Table::configureUsing(function (Table $table): void {
             $table
-                ->defaultPaginationPageOption(10);
-        });
-
-        TimePicker::configureUsing(function (TimePicker $component): void {
-            $component
-                ->seconds(false);
+                ->defaultPaginationPageOption(10)
+                ->recordUrl(null)
+                ->recordAction(null);
         });
         EditAction::configureUsing(function (EditAction $action) {
             $action->iconButton();
@@ -62,6 +62,21 @@ class AppServiceProvider extends ServiceProvider
         });
         ViewAction::configureUsing(function (ViewAction $action) {
             $action->iconButton();
+        });
+        Action::configureUsing(function (Action $action) {
+            $action->iconButton();
+        });
+        DatePicker::configureUsing(function (DatePicker $component) {
+            $component->format('d-m-Y');
+        });
+//        DateTimePicker::configureUsing(function (DateTimePicker $component) {
+//            $component
+//                ->format('d-m-Y h:i A')
+//                ->seconds(false);
+//        });
+        TimePicker::configureUsing(function (TimePicker $component): void {
+            $component
+                ->seconds(false);
         });
 
     }
