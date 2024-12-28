@@ -75,9 +75,10 @@ class CurrentUser
     public static function classId()
     {
         //if parent
-        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
-            $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
-        })?->first()?->studentdetails?->first()?->schoolclass->id;
+        return auth('parent')->user()->studentdetails->first()?->schoolclass->id;
+//        return Student::where('id', auth('parent')->user()->id)->withWhereHas('studentdetails', function ($query){
+//            $query->where('sessionyear', SessionYears::currentSessionYear())->with(['schoolclass']);
+//        })?->first()?->studentdetails?->first()?->schoolclass->id;
     }
 
     public static function studentdetails()
