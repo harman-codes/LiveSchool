@@ -47,11 +47,14 @@ class ExamResource extends Resource
                     ->label('Class')
                     ->required(),
                 Forms\Components\DatePicker::make('fromdate')
+                    ->label('From Date')
                 ->required(),
                 Forms\Components\DatePicker::make('todate')
+                    ->label('To Date')
                 ->required(),
                 TextInput::make('examname')
                     ->label('Exam Name')
+                    ->placeholder('For Ex: 1st term exams')
                     ->required(),
             ]);
     }
@@ -224,8 +227,8 @@ class ExamResource extends Resource
     {
         return [
             'index' => Pages\ListExams::route('/'),
-            'create' => Pages\CreateExam::route('/create'),
-            'edit' => Pages\EditExam::route('/{record}/edit'),
+//            'create' => Pages\CreateExam::route('/create'),
+//            'edit' => Pages\EditExam::route('/{record}/edit'),
         ];
     }
 }

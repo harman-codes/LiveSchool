@@ -67,17 +67,18 @@ class Exammarks extends Page implements HasForms, HasTable
     {
         return $table
             ->query(function(){
+                if(empty($this->selectedClass)||empty($this->selectedExam)){
+                    return Student::query()->whereNull('id');
+                }
+
                 return Student::query()->withWhereHas('studentdetails', function ($query) {
                     $query->where('sessionyear', SessionYears::currentSessionYear())->withWhereHas('schoolclass', function ($query) {
-                        if(!empty($this->selectedClass)){
-                            $query->where('id','=', $this->selectedClass);
-                        }else{
-                            //return all classes
-                            $query->where('classwithsection','like', '%');
-                        }
+                        $query->where('id','=', $this->selectedClass);
                     });
                 });
             })
+            ->emptyStateHeading('Select Options')
+            ->emptyStateDescription('Please select class and exam to display marks.')
             ->columns([
                 TextColumn::make('name')
                     ->description(function($record){
