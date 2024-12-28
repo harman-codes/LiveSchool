@@ -58,15 +58,15 @@ class Attendance extends Page implements HasForms, HasTable
     {
         return $table
             ->striped()
+            ->emptyStateHeading('Select Options')
+            ->emptyStateDescription('Please select class and date to display the attendance.')
             ->query(function(){
+                if(empty($this->selectedClass)||empty($this->selectedDate)){
+                    return Student::query()->whereNull('id');
+                }
                 return Student::query()->withWhereHas('studentdetails', function ($query) {
                     $query->where('sessionyear', SessionYears::currentSessionYear())->withWhereHas('schoolclass', function ($query) {
-                        if(!empty($this->selectedClass)){
-                            $query->where('classwithsection','like', '%'.$this->selectedClass.'%');
-                        }else{
-                            //return all classes
-                            $query->where('classwithsection','like', '%');
-                        }
+                        $query->where('classwithsection','like', '%'.$this->selectedClass.'%');
                     });
                 });
             })
