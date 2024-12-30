@@ -158,7 +158,7 @@ class AnnouncementResource extends Resource
 
                 Section::make()
                     ->schema([
-                        TextEntry::make('user_id')
+                        TextEntry::make('user.name')
                             ->label('Author'),
                         IconEntry::make('is_published')
                             ->label('Approved')
