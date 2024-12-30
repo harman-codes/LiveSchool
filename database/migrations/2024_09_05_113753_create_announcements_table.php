@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->nullOnDelete();
             $table->string('sessionyear');
             $table->string('title');
             $table->longText('description');
             $table->json('pics')->nullable();
             $table->json('original_file_names')->nullable();
             $table->boolean('is_published')->default(false);
-            $table->string('author');
             $table->timestamps();
         });
     }

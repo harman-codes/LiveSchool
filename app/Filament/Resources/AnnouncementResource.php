@@ -64,13 +64,10 @@ class AnnouncementResource extends Resource
                     ->preload()
                     ->multiple()
                     ->required(),
-                TextInput::make('author')
-                    ->label('Author')
+                Forms\Components\Hidden::make('user_id')
                     ->formatStateUsing(function () {
-                        return auth()->user()->name;
-                    })
-                    ->disabled()
-                    ->dehydrated(),
+                        return auth()->user()->id;
+                    }),
             ]);
     }
 
@@ -104,7 +101,8 @@ class AnnouncementResource extends Resource
                             Notify::fail('Disapproved : ' . $record->title);
                         }
                     }),
-                Tables\Columns\TextColumn::make('author'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Author'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('d-m-Y  H:i A')
@@ -160,7 +158,8 @@ class AnnouncementResource extends Resource
 
                 Section::make()
                     ->schema([
-                        TextEntry::make('author'),
+                        TextEntry::make('user_id')
+                            ->label('Author'),
                         IconEntry::make('is_published')
                             ->label('Approved')
                             ->boolean()
