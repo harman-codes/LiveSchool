@@ -49,8 +49,7 @@
                         <div class="swiper mySwiper mt-6">
                             <div class="swiper-wrapper">
                                 @foreach($announcement->pics as $pic)
-                                    <div class="swiper-slide rounded-b-lg"><img src="{{asset('/storage/'.$pic)}}"
-                                                                                alt=""></div>
+                                    <div class="swiper-slide rounded-b-lg"><img src="{{asset('/storage/'.$pic)}}" alt=""></div>
                                 @endforeach
                             </div>
                             <div class="swiper-button-next"></div>

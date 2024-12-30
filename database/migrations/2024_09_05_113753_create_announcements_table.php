@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('description');
             $table->json('pics')->nullable();
             $table->json('original_file_names')->nullable();
+            $table->boolean('is_forschool')->default(0);
             $table->boolean('is_published')->default(false);
             $table->timestamps();
         });

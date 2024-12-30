@@ -16,6 +16,8 @@ class Announcements extends Page
 
     protected static ?int $navigationSort = 4;
 
+    protected static ?string $title = 'Class Notice Board';
+
     public function getAllAnnouncements()
     {
         return auth('parent')->user()->withWhereHas('studentdetails', function ($query) {
