@@ -27,7 +27,6 @@ class Student extends Authenticatable
     public function studentdetails() : HasMany
     {
         return $this->hasMany(Studentdetail::class);
-//        return $this->hasMany(Studentdetail::class)->where('sessionyear', '=', SessionYears::currentSessionYear());
     }
 
     public function attendances(): HasMany
@@ -38,5 +37,10 @@ class Student extends Authenticatable
     public function exammarks(): HasMany
     {
         return $this->hasMany(Exammark::class);
+    }
+
+    public function bookissues(): HasMany
+    {
+        return $this->hasMany(Bookissue::class);
     }
 }
