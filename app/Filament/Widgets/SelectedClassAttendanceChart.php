@@ -54,7 +54,10 @@ class SelectedClassAttendanceChart extends ChartWidget
                         '#FB923C',
                         '#1D4ED8'
                     ],
-                    'borderSkipped' => true
+                    'borderSkipped' => true,
+                    'animation' => [
+                        'duration' => 1500
+                    ],
                 ],
             ],
             'labels' => ['Present','Absent','Leave','Half Day'],
