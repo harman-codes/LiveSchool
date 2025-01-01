@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookissueResource\Pages;
 use App\Filament\Resources\BookissueResource\RelationManagers;
 use App\Helpers\Library;
+use App\Helpers\Role;
 use App\Helpers\SessionYears;
 use App\Models\Bookissue;
 use App\Models\Schoolclass;
@@ -64,8 +65,10 @@ class BookissueResource extends Resource
                 Tables\Columns\TextColumn::make('returnedon')
                     ->label('Returned On'),
                 Tables\Columns\SelectColumn::make('status')
-                    ->options(Library::$bookIssueStatus),
-                Tables\Columns\TextInputColumn::make('remarks'),
+                    ->options(Library::$bookIssueStatus)
+                    ->disabled(fn() => !Role::isAdminOrManagementOrPrincipalOrManager() && !Role::isLibrarian()),
+                Tables\Columns\TextInputColumn::make('remarks')
+                ->disabled(fn() => !Role::isAdminOrManagementOrPrincipalOrManager() && !Role::isLibrarian()),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('sessionyear')
