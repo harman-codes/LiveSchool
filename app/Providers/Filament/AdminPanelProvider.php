@@ -6,6 +6,7 @@ use App\Filament\Widgets\CalendarViewOnlyWidget;
 use App\Filament\Widgets\CalendarWidget;
 use App\Filament\Widgets\FullSchoolAttendanceChart;
 use App\Filament\Widgets\SelectedClassAttendanceChart;
+use App\Livewire\TopbarSessionyearSelectorForSchool;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -44,15 +45,13 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
 //                Pages\Dashboard::class,
             ])
-//            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                CalendarWidget::class,
-                FullSchoolAttendanceChart::class,
-                SelectedClassAttendanceChart::class,
-                CalendarViewOnlyWidget::class
-//                Widgets\AccountWidget::class,
-//                Widgets\FilamentInfoWidget::class,
-            ])
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+//            ->widgets([
+//                CalendarWidget::class,
+//                FullSchoolAttendanceChart::class,
+//                SelectedClassAttendanceChart::class,
+//                CalendarViewOnlyWidget::class,
+//            ])
             ->plugins([
                 FilamentFullCalendarPlugin::make()
                     ->selectable()
@@ -73,4 +72,12 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
+
+//    public function boot()
+//    {
+//        FilamentView::registerRenderHook(
+//            PanelsRenderHook::USER_MENU_BEFORE,
+//            fn (): View => view('livewire.topbar-sessionyear-selector-for-school'),
+//        );
+//    }
 }
