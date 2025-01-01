@@ -63,6 +63,7 @@ class DriverResource extends Resource
                 Tables\Columns\IconColumn::make('is_switchon')
                     ->label('Location Status')
                     ->boolean()
+                ->alignCenter()
             ])
             ->filters([
                 Tables\Filters\Filter::make('Location On')

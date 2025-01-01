@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Announcement;
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\Bookcategory;
+use App\Models\Bookissue;
 use App\Observers\AnnouncementObserver;
+use App\Policies\LibraryPolicy;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
@@ -14,6 +19,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +37,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Gate::policy(Bookissue::class, LibraryPolicy::class);
+        Gate::policy(Book::class, LibraryPolicy::class);
+        Gate::policy(Bookcategory::class, LibraryPolicy::class);
+        Gate::policy(Author::class, LibraryPolicy::class);
+
         Model::unguard();
         Announcement::observe(AnnouncementObserver::class);
 
@@ -52,7 +64,8 @@ class AppServiceProvider extends ServiceProvider
             $table
                 ->defaultPaginationPageOption(10)
                 ->recordUrl(null)
-                ->recordAction(null);
+                ->recordAction(null)
+            ->defaultSort('created_at', 'desc');
         });
         EditAction::configureUsing(function (EditAction $action) {
             $action->iconButton();
