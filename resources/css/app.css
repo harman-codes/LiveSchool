@@ -127,6 +127,11 @@ th.fi-ta-header-cell .fi-ta-header-cell-label{
     }
 }
 
+/*Widget*/
+.fi-wi-widget.fi-wi-chart .fi-section{
+    @apply h-full;
+}
+
 /*Test*/
 /*table{*/
 /*    @apply bg-slate-100;*/
