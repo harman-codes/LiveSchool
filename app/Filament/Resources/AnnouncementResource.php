@@ -58,12 +58,20 @@ class AnnouncementResource extends Resource
                     ->reorderable()
                     ->appendFiles()
                     ->columnSpan('full'),
+
+                Forms\Components\Toggle::make('is_forschool')
+                    ->label('For all Classes ?')
+                    ->onColor('success')
+                    ->offColor('danger')
+                    ->live(),
+
+                /*selector for classes*/
                 Forms\Components\Select::make('class')
                     ->label('Class')
                     ->relationship('schoolclasses', 'classwithsection', fn($query) => $query->orderBy('id', 'asc'))
                     ->preload()
                     ->multiple()
-                    ->required(),
+                    ->visible(fn(Forms\Get $get) => !$get('is_forschool')),
                 Forms\Components\Hidden::make('user_id')
                     ->formatStateUsing(function () {
                         return auth()->user()->id;
@@ -87,6 +95,10 @@ class AnnouncementResource extends Resource
                 Tables\Columns\TextColumn::make('schoolclasses.classwithsection')
                     ->badge()
                     ->label('Classes'),
+                Tables\Columns\IconColumn::make('is_forschool')
+                    ->label('For School')
+                    ->boolean()
+                    ->alignCenter(),
                 Tables\Columns\ToggleColumn::make('is_published')
                     ->label('Approve')
                     ->hidden(function () {
@@ -101,6 +113,11 @@ class AnnouncementResource extends Resource
                             Notify::fail('Disapproved : ' . $record->title);
                         }
                     }),
+                Tables\Columns\IconColumn::make('approvalStatus')
+                    ->label('Approved')
+                    ->getStateUsing(fn($record) => $record->is_published)
+                    ->boolean()
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Author'),
                 Tables\Columns\TextColumn::make('created_at')
@@ -113,10 +130,6 @@ class AnnouncementResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-//                Tables\Filters\Filter::make('Latest')
-//                    ->query(function (Builder $query) {
-//                        return $query->orderByDesc('updated_at');
-//                    }),
                 Tables\Filters\SelectFilter::make('class')
                     ->label('Classes')
                     ->relationship('schoolclasses', 'classwithsection', modifyQueryUsing: fn(Builder $query) => $query->orderBy('sort', 'asc'))
