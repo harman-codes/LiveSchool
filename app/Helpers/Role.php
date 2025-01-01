@@ -11,6 +11,7 @@ class Role
         'manager' => 'Manager',
         'teacher' => 'Teacher',
         'finance' => 'Finance',
+        'librarian' => 'Librarian',
     ];
 
     public static function roles(): array
@@ -46,6 +47,11 @@ class Role
     public static function isFinance(): bool
     {
         return auth()->user()->role == 'finance';
+    }
+
+    public static function isLibrarian(): bool
+    {
+        return auth()->user()->role == 'librarian';
     }
 
     public static function isAdminOrManagementOrPrincipalOrManager(): bool
