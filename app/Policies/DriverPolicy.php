@@ -30,7 +30,7 @@ class DriverPolicy
      */
     public function create(User $user): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
@@ -38,7 +38,7 @@ class DriverPolicy
      */
     public function update(User $user, Driver $driver): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
@@ -46,7 +46,7 @@ class DriverPolicy
      */
     public function delete(User $user, Driver $driver): bool
     {
-        return Role::isAdminOrPrincipalOrManager();
+        return Role::isAdminOrManagementOrPrincipalOrManager();
     }
 
     /**
