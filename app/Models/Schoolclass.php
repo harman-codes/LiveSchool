@@ -50,6 +50,12 @@ class Schoolclass extends Model
         return $this->hasMany(TimeTableSlot::class);
     }
 
+    public function books(): BelongsToMany
+    {
+        return $this->belongsToMany(Book::class);
+    }
+
+
 //    public function classtests()
 //    {
 //        return $this->hasMany(Classtest::class);
