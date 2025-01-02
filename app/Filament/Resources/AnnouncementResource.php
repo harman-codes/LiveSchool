@@ -33,50 +33,54 @@ class AnnouncementResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('sessionyear')->label('Session')->default(SessionYears::currentSessionYear())
-                    ->disabled()
-                    ->dehydrated()
-                    ->required(),
-                TextInput::make('title')
-                    ->label('Title')
-                    ->required(),
-                Forms\Components\RichEditor::make('description')
-                    ->label('Description')
-                    ->columnSpanFull()
-                    ->required(),
-                Forms\Components\FileUpload::make('pics')
-                    ->label('Pictures')
-                    ->multiple()
-                    ->storeFileNamesIn('original_file_names')
-                    ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
-                        return (string)str($file->getClientOriginalName())
-                            ->prepend(Carbon::now()->format('d-m-Y_H-i-s') . '_');
-                    })
-                    ->image()
-                    ->imageEditor()
-                    ->panelLayout('grid')
-                    ->reorderable()
-                    ->appendFiles()
-                    ->columnSpan('full'),
+                Forms\Components\Section::make()
+                    ->schema([
+                        TextInput::make('sessionyear')->label('Session')->default(SessionYears::currentSessionYear())
+                            ->disabled()
+                            ->dehydrated()
+                            ->required(),
+                        TextInput::make('title')
+                            ->label('Title')
+                            ->required(),
+                        Forms\Components\RichEditor::make('description')
+                            ->label('Description')
+                            ->columnSpanFull()
+                            ->required(),
+                        Forms\Components\FileUpload::make('pics')
+                            ->label('Pictures')
+                            ->multiple()
+                            ->storeFileNamesIn('original_file_names')
+                            ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                return (string)str($file->getClientOriginalName())
+                                    ->prepend(Carbon::now()->format('d-m-Y_H-i-s') . '_');
+                            })
+                            ->image()
+                            ->imageEditor()
+                            ->panelLayout('grid')
+                            ->reorderable()
+                            ->appendFiles()
+                            ->columnSpan('full'),
 
-                Forms\Components\Toggle::make('is_forschool')
-                    ->label('For all Classes ?')
-                    ->onColor('success')
-                    ->offColor('danger')
-                    ->live(),
+                        Forms\Components\Toggle::make('is_forschool')
+                            ->label('For all Classes ?')
+                            ->onColor('success')
+                            ->offColor('danger')
+                            ->live()
+                            ->columnSpanFull(),
 
-                /*selector for classes*/
-                Forms\Components\Select::make('class')
-                    ->label('Class')
-                    ->relationship('schoolclasses', 'classwithsection', fn($query) => $query->orderBy('id', 'asc'))
-                    ->preload()
-                    ->multiple()
-                    ->visible(fn(Forms\Get $get) => !$get('is_forschool')),
-                Forms\Components\Hidden::make('user_id')
-                    ->formatStateUsing(function () {
-                        return auth()->user()->id;
-                    }),
-            ]);
+                        /*selector for classes*/
+                        Forms\Components\Select::make('class')
+                            ->label('Class')
+                            ->relationship('schoolclasses', 'classwithsection', fn($query) => $query->orderBy('id', 'asc'))
+                            ->preload()
+                            ->multiple()
+                            ->visible(fn(Forms\Get $get) => !$get('is_forschool')),
+                        Forms\Components\Hidden::make('user_id')
+                            ->formatStateUsing(function () {
+                                return auth()->user()->id;
+                            }),
+                    ])
+            ]); //schema
     }
 
     public static function table(Table $table): Table
@@ -202,8 +206,8 @@ class AnnouncementResource extends Resource
     {
         return [
             'index' => Pages\ListAnnouncements::route('/'),
-            'create' => Pages\CreateAnnouncement::route('/create'),
-            'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
+//            'create' => Pages\CreateAnnouncement::route('/create'),
+//            'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
         ];
     }
 }
